@@ -2,7 +2,7 @@
 
 ## Description
 
-Osu! Songs from MyAnimeList User is a web application that takes a MyAnimeList (MAL) username as input and returns a list of songs from the game Osu! that appear on the user's anime list. The app utilizes the Osu! API, unofficial MyAnimeList API, and Beautiful Soup for web scraping.
+Osu! Songs from MyAnimeList User is a web application that takes a MyAnimeList (MAL) username as input and returns a list of songs from the game Osu! that appear on the user's anime list. The app utilizes the Osu! API, unofficial MyAnimeList API, and Beautiful Soup for web scraping. This website will be using a React frontend and a Flask backend.
 
 
 ## API Usage

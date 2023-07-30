@@ -51,4 +51,4 @@ coverage.xml
 docs/_build/
 
 # Secret Files
-/Anime List to Osu/.env
+**/.env

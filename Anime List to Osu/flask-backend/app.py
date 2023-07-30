@@ -3,13 +3,13 @@ from data_processing import convertor
 import os
 from dotenv import load_dotenv
 
-
+load_dotenv
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 @app.route("/")
 def things():
-    return render_template("html/home.html")
+    return render_template("index.html", token="Flask+React")
 
 
 @app.route("/process", methods=["POST"])
