@@ -1,9 +1,38 @@
 from ossapi import Ossapi
-import config
+import local_config
+import re
+from mal import *
+import bs4
+import requests
+from dotenv import load_dotenv
+import os
 
-# create a new client at https://osu.ppy.sh/home/account/edit#oauth
-api = Ossapi(config.client_id, config.client_secret)
+load_dotenv()
+KEY = os.getenv("client_id")
+PASSWORD = os.getenv("client_secret")
 
-# see docs for full list of endpoints
+# user = 'MayilArna'
+user = "raj_23"
 
-print((api.search_beatmapsets("tokyo ghoul unravel"))[0])
+
+def mal(user):
+    link = f"https://myanimelist.net/animelist/{user}?status=2&order=4&order2=0"
+    url = requests.get(link)
+    url.raise_for_status
+    soup = bs4.BeautifulSoup(url.text, "html.parser")
+    html_list = soup.find("table", attrs={"class": "list-table"})
+    source = str(html_list)
+    start_sep = "&quot;,&quot;anime_title_eng&quot;:&quot;"
+    end_sep = "&quot;,&quot;anime_num_episodes&quot"
+    results = []
+    tmp = source.split(start_sep)
+    for par in tmp:
+        if end_sep in par:
+            results.append(par.split(end_sep)[0])
+
+    return results
+
+
+anime_list = mal(user)[10:15]
+# print(anime_list)
+
