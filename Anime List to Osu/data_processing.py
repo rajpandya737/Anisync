@@ -1,6 +1,6 @@
 from ossapi import Ossapi
 import re
-from mal import *
+from mal import Anime, AnimeSearch
 import bs4
 import requests
 from dotenv import load_dotenv
@@ -11,7 +11,7 @@ KEY = os.getenv("KEY")
 PASSWORD = os.getenv("PASSWORD")
 
 # user = 'MayilArna'
-user = "raj_23"
+# user = "raj_23"
 
 
 def mal(user):
@@ -32,7 +32,7 @@ def mal(user):
     return results
 
 
-anime_list = mal(user)[10:15]
+
 # print(anime_list)
 
 
@@ -79,18 +79,21 @@ def get_first_non_empty(data):
     return [None]
 
 
-def remove_japanese_in_brackets(text):
+def remove_japanese(text):
     non_ascii_in_brackets_pattern = r"\(([^)]*[\u0080-\uFFFF]+[^)]*)\)"
     cleaned_text = re.sub(non_ascii_in_brackets_pattern, "", text)
     return cleaned_text
 
 
-def main():
+def convertor(user):
     api = Ossapi(KEY, PASSWORD)
+    anime_list = mal(user)[10:15]
+    anime_song_link = {}
     for anime in anime_list:
-        song = remove_japanese_in_brackets(get_first_non_empty(get_opening(anime))[0])
+        song = remove_japanese(get_first_non_empty(get_opening(anime))[0])
         link = get_links_by_anime(api, song, 1)
-        print("Anime:", anime, "Song:", song, "Link:", link)
+        anime_song_link[anime] = {"song": song, "link": link}
+    return anime_song_link
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
