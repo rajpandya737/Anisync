@@ -36,3 +36,20 @@ def mal(user):
 anime_list = mal(user)[10:15]
 # print(anime_list)
 
+
+def extract_titles(text):
+    pattern = r'"([^"]+)"'
+    return re.findall(pattern, text)
+
+def get_opening(anime):
+    search = AnimeSearch(anime)
+    ops = Anime(search.results[0].mal_id).opening_themes
+    return [extract_titles(item) for item in ops]
+
+
+def get_openings(anime_list):
+    openings = []
+    for anime in anime_list:
+        openings.append(get_opening(anime))
+    return openings
+
