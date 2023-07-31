@@ -1,13 +1,18 @@
 import sqlite3
 from data_processing import convertor
-
+import time
 
 def main():
-    user = "raj_23"
-    start = 0
-    end = 30
-    anime_list = convertor(user, start, end)
-    add_anime_by_list(anime_list)
+    for i in range(5):
+        user = "MayilArna"
+        start = 140 + 20*i
+        end = 160 + 20*i
+        print(start, end)
+        anime_list = convertor(user, start, end)
+        #print(anime_list)
+        add_anime_by_list(anime_list)
+        time.sleep(80)
+        print(start, end)
 
 
 conn = sqlite3.connect("anime_list.sqlite")
@@ -62,8 +67,9 @@ def add_anime_by_list(anime_list):
                 "INSERT INTO anime (anime_name, anime_song, anime_img, osu_link) VALUES (?, ?, ?, ?)",
                 anime,
             )
+    conn.commit()
 
 
-#main()
+main()
 conn.commit()
 conn.close()

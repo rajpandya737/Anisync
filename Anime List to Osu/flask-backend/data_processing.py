@@ -197,7 +197,7 @@ def convertor(user, s, e):
             # osu_api_search_term = f"{anime} {song[0]}"
             # print(search_term)
             # link = get_links_by_anime(api, search_term, 1)
-            google_search_term = f"{anime} Osu Beatmap"
+            google_search_term = f"{anime} Osu Beatmap Anime"
             link = get_links_by_anime_google(google_search_term)
             #print(link)
             #osu_id = get_id_from_link(link)
@@ -209,7 +209,9 @@ def convertor(user, s, e):
             link = [f"Some {anime_type}'s are not supported yet"]
 
         if song[0] is None or song[0] == "None":
-            link = ["Does not exist"]
+            link = "Does not exist"
+            song = "No song found"
+            
 
         list_info.append((anime, song, img, link))
     return list_info
@@ -222,7 +224,7 @@ def convertor(user, s, e):
 # print((get_links_by_anime_google(google_search_term)))
 
 
-print(convertor("raj_23", 0, 3))
+#rint(convertor("raj_23", 0, 3))
 
 
 # api = Ossapi(KEY, PASSWORD)
