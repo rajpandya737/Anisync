@@ -3,17 +3,27 @@ from data_processing import convertor
 import time
 
 def main():
-    for i in range(5):
-        user = "MayilArna"
-        start = 140 + 20*i
-        end = 160 + 20*i
-        print(start, end)
-        anime_list = convertor(user, start, end)
-        #print(anime_list)
-        add_anime_by_list(anime_list)
-        time.sleep(80)
-        print(start, end)
+    pass
 
+def set_song_to_none():
+    update_query = """
+        UPDATE anime
+        SET anime_song = 'No song found'
+        WHERE osu_link = 'Does not exist';
+    """
+    c.execute(update_query)
+
+
+def add_songs_by_user(user, start, stop):
+    for i in range(8):
+        user = "NuxTaku"
+        start = 170 + 20*i
+        end = 200 + 20*i
+        print(start, end, "start")
+        anime_list = convertor(user, start, end)
+        add_anime_by_list(anime_list)
+        time.sleep(30)
+        print(start, end, "end")
 
 conn = sqlite3.connect("anime_list.sqlite")
 c = conn.cursor()
@@ -67,6 +77,7 @@ def add_anime_by_list(anime_list):
                 "INSERT INTO anime (anime_name, anime_song, anime_img, osu_link) VALUES (?, ?, ?, ?)",
                 anime,
             )
+            print(anime)
     conn.commit()
 
 

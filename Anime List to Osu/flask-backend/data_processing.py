@@ -7,10 +7,12 @@ from dotenv import load_dotenv
 import os
 import unicodedata
 from urllib.parse import urlparse, parse_qs
+import sqlite3
 
 load_dotenv()
 KEY = os.getenv("KEY")
 PASSWORD = os.getenv("PASSWORD")
+ERROR_IMG_URL = os.getenv("ERROR_IMG_URL")
 
 # user = 'MayilArna'
 # user = "raj_23"
@@ -182,38 +184,57 @@ def get_id_from_link(link):
     return (link.split("/")[-1])
 
 def convertor(user, s, e):
+    conn = sqlite3.connect("anime_list.sqlite")
+    c = conn.cursor()
     api = Ossapi(KEY, PASSWORD)
     anime_list = decode_unicode(remove_blank_entries(mal(user)[s:e]))
     list_info = []
     for anime in anime_list:
-        print(anime)
-        img, anime_type = get_anime_type(anime)
-        # ops, img, anime_type = get_opening(anime)
-        # test = get_first_non_empty(ops)
-        # song = list(map(str, test))
-        # print([anime], song, anime_type)
-        song = [None]
-        if anime_type == "TV":
-            # osu_api_search_term = f"{anime} {song[0]}"
-            # print(search_term)
-            # link = get_links_by_anime(api, search_term, 1)
-            google_search_term = f"{anime} Osu Beatmap Anime"
-            link = get_links_by_anime_google(google_search_term)
-            #print(link)
-            #osu_id = get_id_from_link(link)
-            #print(osu_id)
-            song = scrape_osu(link)
+        c.execute("SELECT 1 FROM anime WHERE anime_name = ? LIMIT 1", (anime,))
+        result = c.fetchone()
+        #print(anime)
+        if not result:
+            #print("Not in database")
+            img, anime_type = get_anime_type(anime)
+            song = [None]
+            if anime_type == "TV":
+                # osu_api_search_term = f"{anime} {song[0]}"
+                # print(search_term)
+                # link = get_links_by_anime(api, search_term, 1)
+                google_search_term = f"{anime} Osu Beatmap Anime"
+                link = get_links_by_anime_google(google_search_term)
+                #print(link)
+                #osu_id = get_id_from_link(link)
+                #print(osu_id)
+                song = scrape_osu(link)
 
 
-        if anime_type != "TV":
-            link = [f"Some {anime_type}'s are not supported yet"]
+            if anime_type != "TV":
+                link = [f"Some {anime_type}'s are not supported yet"]
 
-        if song[0] is None or song[0] == "None":
-            link = "Does not exist"
-            song = "No song found"
-            
+            if song[0] is None or song[0] == "None":
+                link = "Does not exist"
+                song = "No song found"
+            list_info.append((anime, song, img, link))
+        else:
+            select_query = """
+            SELECT * FROM anime
+            WHERE anime_name = ?;
+        """
+            try:
+                # Execute the select query
+                c.execute(select_query, (anime,))
+                row = c.fetchone()
 
-        list_info.append((anime, song, img, link))
+                if row:
+                    # If a row is found, you can access the columns like this
+                    db_anime_name, db_anime_song, db_anime_img, db_osu_link = row
+                    list_info.append((db_anime_name, db_anime_song, db_anime_img, db_osu_link))
+                else:
+                    list_info.append((anime, "No song", ERROR_IMG_URL, "Does not exist"))
+            except Exception as e:
+                list_info.append((anime, "No song", ERROR_IMG_URL, "Does not exist"))
+    conn.close()
     return list_info
 
 #_, t = get_anime_type("Gintama")
@@ -224,7 +245,7 @@ def convertor(user, s, e):
 # print((get_links_by_anime_google(google_search_term)))
 
 
-#rint(convertor("raj_23", 0, 3))
+#print(convertor("raj_23", 0, 100))
 
 
 # api = Ossapi(KEY, PASSWORD)

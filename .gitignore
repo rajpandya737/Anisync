@@ -198,6 +198,7 @@ sketch
 # Ignore all .env files in any subdirectory
 **/.env
 
-anime_list.sqlite
-anime_list_test.sqlite
+**/anime_list.sqlite3
+**/anime_list_test.sqlite3
+**/anime_list_test.sqlite3
 
