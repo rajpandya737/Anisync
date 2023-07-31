@@ -7,6 +7,8 @@ load_dotenv
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
+# if any errors arise, try changing yarn.lock file back to original
+
 @app.route("/")
 def things():
     return render_template("index.html", token="Flask+React")
