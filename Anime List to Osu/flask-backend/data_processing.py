@@ -9,10 +9,10 @@ import unicodedata
 from urllib.parse import urlparse, parse_qs
 import sqlite3
 
-load_dotenv()
-KEY = os.getenv("KEY")
-PASSWORD = os.getenv("PASSWORD")
-ERROR_IMG_URL = os.getenv("ERROR_IMG_URL")
+#load_dotenv()
+#KEY = os.getenv("KEY")
+#PASSWORD = os.getenv("PASSWORD")
+ERROR_IMG_URL = 'https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png'
 
 # user = 'MayilArna'
 # user = "raj_23"
@@ -186,7 +186,7 @@ def get_id_from_link(link):
 def convertor(user, s, e):
     conn = sqlite3.connect("anime_list.sqlite")
     c = conn.cursor()
-    api = Ossapi(KEY, PASSWORD)
+    #api = Ossapi(KEY, PASSWORD)
     anime_list = decode_unicode(remove_blank_entries(mal(user)[s:e]))
     list_info = []
     for anime in anime_list:
@@ -235,6 +235,8 @@ def convertor(user, s, e):
             except Exception as e:
                 list_info.append((anime, "No song", ERROR_IMG_URL, "Does not exist"))
     conn.close()
+    first = list_info[0]
+    return {list_info[0]: [list_info[1], list_info[2], list_info[3]]}
     return list_info
 
 #_, t = get_anime_type("Gintama")
@@ -245,7 +247,7 @@ def convertor(user, s, e):
 # print((get_links_by_anime_google(google_search_term)))
 
 
-#print(convertor("raj_23", 0, 100))
+#print(convertor("raj_23", 0, 5))
 
 
 # api = Ossapi(KEY, PASSWORD)
