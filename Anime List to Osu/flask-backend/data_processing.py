@@ -215,7 +215,7 @@ def convertor(user, s, e):
             if song[0] is None or song[0] == "None":
                 link = "Does not exist"
                 song = "No song found"
-            list_info.append((anime, song, img, link))
+            list_info.append([anime, song, img, link])
         else:
             select_query = """
             SELECT * FROM anime
@@ -229,15 +229,19 @@ def convertor(user, s, e):
                 if row:
                     # If a row is found, you can access the columns like this
                     db_anime_name, db_anime_song, db_anime_img, db_osu_link = row
-                    list_info.append((db_anime_name, db_anime_song, db_anime_img, db_osu_link))
+                    list_info.append([db_anime_name, db_anime_song, db_anime_img, db_osu_link])
                 else:
-                    list_info.append((anime, "No song", ERROR_IMG_URL, "Does not exist"))
+                    list_info.append([anime, "No song", ERROR_IMG_URL, "Does not exist"])
             except Exception as e:
-                list_info.append((anime, "No song", ERROR_IMG_URL, "Does not exist"))
+                list_info.append([anime, "No song", ERROR_IMG_URL, "Does not exist"])
     conn.close()
-    first = list_info[0]
-    return {list_info[0]: [list_info[1], list_info[2], list_info[3]]}
+    # first = list_info[0]
+    # return {first[0]: [first[1], first[2], first[3]]}
     return list_info
+
+
+
+
 
 #_, t = get_anime_type("Gintama")
 #print([t])
@@ -247,11 +251,14 @@ def convertor(user, s, e):
 # print((get_links_by_anime_google(google_search_term)))
 
 
-#print(convertor("raj_23", 0, 5))
+print(convertor("raj_23", 0, 2)[0][1])
+
+
+#print((a))
 
 
 # api = Ossapi(KEY, PASSWORD)
-# print(get_song_from_osu(api, 667216))
+#print(get_song_from_osu(api, 667216))
 
 
 
