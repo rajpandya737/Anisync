@@ -1,28 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-  <link rel="shortcut icon" href="#">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <h1>POST Request Test</h1>
+    <form action="" method="POST">
+      <input type="text" id="user" name="user" placeholder="Enter your data" />
+      <input type="submit" />
+    </form>
 
-  <h1>POST Request Example</h1>
-  <form action="/submit-data" method="POST">
-    <input type="text" id="user" name="user" placeholder="Enter your data" >
-    <input type="submit">
-  </form>
+    <div class="card-container">
+      {% for anime in anime_info %}
+      <div class="card">
+        <!-- <p>{{ anime[0] }}</p> -->
+        <figure class="hover-img">
+          <img src="{{ anime[2] }}" alt="" title="{{ anime[0] }}" />
+          <figcaption>
+            <h3>{{ anime[0] }}</h3>
+          </figcaption>
+        </figure>
 
+        {% if anime[3] != 'Does not exist' %}
+        <a href="{{ anime[3] }}" target="_blank">{{ anime[1] }}</a>
+        {% else %}
+        <p>{{ anime[1] }}</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
 
-  <script>
-    const anime_data = {{ anime_info | tojson }}
-    console.log(anime_data)
-</script>
+    <script>
+      // const anime_data = {{ anime_info | tojson }}
+    </script>
 
-  <div id="data-container">
-    <!-- JSON data will be displayed here -->
-  </div>
-
-</body>
+    <div id="data-container">
+      <!-- JSON data will be displayed here -->
+    </div>
+  </body>
 </html>

@@ -22,12 +22,18 @@ def login():
     if request.method == "POST":
         user = request.form["user"]
         session["user"] = user
-        session["anime_info"] = convertor(user, 0, 5)
+        session["anime_info"] = convertor(user, 0, 30)
         return redirect(url_for("user"))
     return render_template("home.html")
 
 @app.route("/view-maps", methods=["GET", "POST"])  # Include the 'username' parameter in the route
 def user():
+    if request.method == "POST":
+        user = request.form["user"]
+        session["user"] = user
+        session["anime_info"] = convertor(user, 0, 30)
+        return redirect(url_for("user"))
+    
     if "user" in session:
         user = session["user"]
         anime = session["anime_info"]

@@ -183,6 +183,8 @@ def scrape_osu(link):
 def get_id_from_link(link):
     return (link.split("/")[-1])
 
+
+
 def convertor(user, s, e):
     conn = sqlite3.connect("anime_list.sqlite")
     c = conn.cursor()
