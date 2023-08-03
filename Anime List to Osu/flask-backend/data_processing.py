@@ -8,6 +8,7 @@ import os
 import unicodedata
 from urllib.parse import urlparse, parse_qs
 import sqlite3
+import html
 
 #load_dotenv()
 #KEY = os.getenv("KEY")
@@ -67,7 +68,6 @@ def extract_anime_id(url):
 
 
 def get_anime_type(anime):
-    # search = AnimeSearch(anime)
     # Getting ID from google search results instead of using the API is much
     # faster and has to make half as many calls
     try:
@@ -81,6 +81,7 @@ def get_anime_type(anime):
     anime_type = anime_info.type
     # titles = [extract_titles(item) for item in ops], img,
     return img, anime_type
+
 
 
 def get_links(input_string):
@@ -125,6 +126,16 @@ def get_links_by_anime_google(search_term):
     # except IndexError:
     #     return None
 
+def anime_type_test(anime):
+    search_term = f"{anime} MyAnimeList"
+    link = (get_links_by_anime_google(search_term))
+    result = requests.get(link)
+    soup = bs4.BeautifulSoup(result.text, "html.parser")
+    print(soup)
+
+
+
+#anime_type_test("Gintama")
 
 def remove_japanese(text):
     return list(filter(lambda ele: re.search("[a-zA-Z\s]+", ele) is not None, text))
@@ -183,7 +194,7 @@ def scrape_osu(link):
 def get_id_from_link(link):
     return (link.split("/")[-1])
 
-
+convert_unicode_to_html = lambda x: html.escape(x.encode('utf-8').decode('unicode_escape'))
 
 def convertor(user, s, e):
     conn = sqlite3.connect("anime_list.sqlite")
@@ -200,14 +211,8 @@ def convertor(user, s, e):
             img, anime_type = get_anime_type(anime)
             song = [None]
             if anime_type == "TV":
-                # osu_api_search_term = f"{anime} {song[0]}"
-                # print(search_term)
-                # link = get_links_by_anime(api, search_term, 1)
                 google_search_term = f"{anime} Osu Beatmap Anime"
                 link = get_links_by_anime_google(google_search_term)
-                #print(link)
-                #osu_id = get_id_from_link(link)
-                #print(osu_id)
                 song = scrape_osu(link)
 
 
@@ -217,6 +222,7 @@ def convertor(user, s, e):
             if song[0] is None or song[0] == "None":
                 link = "Does not exist"
                 song = "No song found"
+            anime = convert_unicode_to_html(anime)
             list_info.append([anime, song, img, link])
         else:
             select_query = """
@@ -231,14 +237,14 @@ def convertor(user, s, e):
                 if row:
                     # If a row is found, you can access the columns like this
                     db_anime_name, db_anime_song, db_anime_img, db_osu_link = row
+                    db_anime_name = convert_unicode_to_html(db_anime_name)
                     list_info.append([db_anime_name, db_anime_song, db_anime_img, db_osu_link])
                 else:
+                    anime = convert_unicode_to_html(anime)
                     list_info.append([anime, "No song", ERROR_IMG_URL, "Does not exist"])
             except Exception as e:
                 list_info.append([anime, "No song", ERROR_IMG_URL, "Does not exist"])
     conn.close()
-    # first = list_info[0]
-    # return {first[0]: [first[1], first[2], first[3]]}
     return list_info
 
 
@@ -253,7 +259,6 @@ def convertor(user, s, e):
 # print((get_links_by_anime_google(google_search_term)))
 
 
-print(convertor("raj_23", 0, 2)[0][1])
 
 
 #print((a))

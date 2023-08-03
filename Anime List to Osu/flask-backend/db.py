@@ -3,7 +3,15 @@ from data_processing import convertor
 import time
 
 def main():
-    pass
+    user = "callent"
+    for i in range(8):
+        start = 0 + 30*i
+        end = 30 + 30*i
+        print(start, end, "start")
+        anime_list = convertor(user, start, end)
+        add_anime_by_list(anime_list)
+        time.sleep(30)
+        print(start, end, "end")
 
 def set_song_to_none():
     update_query = """
@@ -14,16 +22,7 @@ def set_song_to_none():
     c.execute(update_query)
 
 
-def add_songs_by_user(user, start, stop):
-    for i in range(8):
-        user = "NuxTaku"
-        start = 170 + 20*i
-        end = 200 + 20*i
-        print(start, end, "start")
-        anime_list = convertor(user, start, end)
-        add_anime_by_list(anime_list)
-        time.sleep(30)
-        print(start, end, "end")
+
 
 conn = sqlite3.connect("anime_list.sqlite")
 c = conn.cursor()
