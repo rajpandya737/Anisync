@@ -1,17 +1,22 @@
 import sqlite3
 from data_processing import convertor
 import time
+import re
+
 
 def main():
-    user = "callent"
-    for i in range(8):
-        start = 0 + 30*i
-        end = 30 + 30*i
-        print(start, end, "start")
-        anime_list = convertor(user, start, end)
-        add_anime_by_list(anime_list)
-        time.sleep(30)
-        print(start, end, "end")
+    # user = "Kyoko_52"
+    # for i in range(40):
+    #     start = 0 + 30*i
+    #     end = 300 + 30*i
+    #     print(start, end, "start")
+    #     anime_list = convertor(user, start, end)
+    #     add_anime_by_list(anime_list)
+    #     time.sleep(45)
+    #     print(start, end, "end")
+    update_anime_links_and_songs("community/forums", "Does not exist", "No song found")
+    pass
+
 
 def set_song_to_none():
     update_query = """
@@ -20,8 +25,6 @@ def set_song_to_none():
         WHERE osu_link = 'Does not exist';
     """
     c.execute(update_query)
-
-
 
 
 conn = sqlite3.connect("anime_list.sqlite")
@@ -36,6 +39,29 @@ def no_map(anime_name, anime_song, anime_img):
 def insert_and_delete(anime_name, anime_song, anime_img, osu_link):
     remove_anime(anime_name)
     insert_anime(anime_name, anime_song, anime_img, osu_link)
+
+
+def update_anime_links_and_songs(old_word, new_link, new_song):
+
+    # Fetch anime records containing the old_word in the osu_link
+    c.execute("SELECT * FROM anime")
+    anime_records = c.fetchall()
+
+    # Update the link and song for each matching record
+    for record in anime_records:
+        anime_name, anime_song, anime_img, osu_link = record
+
+        if old_word in osu_link:
+            updated_osu_link = new_link
+            updated_anime_song = new_song
+
+            # Execute the UPDATE query
+            c.execute(
+                "UPDATE anime SET osu_link = ?, anime_song = ? WHERE anime_name = ?",
+                (updated_osu_link, updated_anime_song, anime_name),
+            )
+
+    conn.commit()
 
 
 # c.execute(

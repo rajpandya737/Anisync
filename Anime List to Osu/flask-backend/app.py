@@ -15,6 +15,7 @@ import json
 
 load_dotenv()
 app = Flask(__name__)
+#CHANGE THIS WHEN LAUNCHING ----------------------------------------------------------  
 app.secret_key = "hello"
 
 @app.route("/login", methods=["GET", "POST"])
@@ -22,7 +23,7 @@ def login():
     if request.method == "POST":
         user = request.form["user"]
         session["user"] = user
-        session["anime_info"] = convertor(user, 0, 30)
+        session["anime_info"] = convertor(user, 0, 100)
         return redirect(url_for("user"))
     return render_template("home.html")
 
