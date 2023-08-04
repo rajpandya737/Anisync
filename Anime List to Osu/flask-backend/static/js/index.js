@@ -1,32 +1,14 @@
-function makePostRequest(animeList) {
-  // const dynamicContentDiv = document.getElementById('dynamicContent');
-  // const dynamicHTML = '<h1>Hello, this is dynamically generated HTML!</h1>' +
-  //                     '<p>This content is created by calling a JavaScript function.</p>' +
-  //                     '<img src="path/to/image.jpg" alt="Dynamic Image">';
+// function changeImageTitles() {
+//   imageElements.forEach(function (img) {
+//     const index = img.className.replace("img", "");
+//     for (let i = 0; i < anime_info.length; i++) {
+//       //write if statement if anime_info[i][0] is has the word "fate\\/" in it
+//       if (anime_info[i][0].includes("fate\\/")) {
+//         anime_info[i][0] = anime_info[i][0].replace("fate\\/", "fate/");
+//       }
+//     }
+//     img.title = anime_info[index][0];
+//     console.log(img.title);
+//   });
+// }
 
-  // // Set the content of the div to the dynamically generated HTML
-  // dynamicContentDiv.innerHTML = dynamicHTML;
-  console.log(animeList);
-}
-
-function clearList(inputString) {
-  var listFormatted = inputString.split("Seperator_Tags");
-  try {
-    listFormatted[0] = listFormatted[0].replace("[&#39;", "");
-  } catch (error) {
-    console.log(error);
-  }
-  try {
-    l = listFormatted.length - 1;
-    listFormatted[l] = listFormatted[l].replace(
-      ", &#39;&lt;Seperator_Tags&gt;&#39;]",
-      ""
-    );
-  } catch (error) {
-    console.log(error);
-  }
-  for (var i = 0; i < listFormatted.length; i++) {
-    listFormatted[i] = listFormatted[i].replace("&#39;", "");
-  }
-  return listFormatted;
-}

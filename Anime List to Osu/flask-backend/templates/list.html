@@ -8,8 +8,26 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/styles.css') }}"
     />
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scroll.js') }}"></script>
   </head>
   <body>
+
+
+    <header id="main-header">
+      <div class="siteLogo">
+        <a id="logo"><img src="{{ url_for('static', filename='images/aniosulogo.png') }}" alt="Website Logo"></a>
+      </div>      
+      <nav class="main-nav">                
+      </nav>
+      <nav class="sub-nav">
+        <a target="_blank" href="https://github.com/RajPandya737">Github</a>       
+      </nav>      
+    </header>
+
+
+
+
     <h1>Enter your MAL username to get beatmaps</h1>
     <form action="" method="POST">
       <input type="text" id="user" name="user" placeholder="Enter your data" />
@@ -21,27 +39,28 @@
       <div class="card">
         <!-- <p>{{ anime[0] }}</p> -->
         <figure class="hover-img">
-          <img src="{{ anime[2] }}" alt="" title="{{ anime[0] }}" />
+          <img class="img{{ loop.index0 }}" src="{{ anime[2] }}" alt="" title="{{ anime[0] }}" />
           <figcaption>
             <h3>{{ anime[0] }}</h3>
           </figcaption>
         </figure>
-
+    
         {% if anime[3] != 'Does not exist' %}
         <a href="{{ anime[3] }}" target="_blank">{{ anime[1] }}</a>
         {% else %}
-        <p>{{ anime[1] }}</p>
+        <a>{{ anime[1] }}</a>
         {% endif %}
       </div>
       {% endfor %}
     </div>
-
-    <script>
+    <!-- <script>
       // const anime_data = {{ anime_info | tojson }}
-    </script>
+    </script> -->
+
 
     <div id="data-container">
       <!-- JSON data will be displayed here -->
     </div>
+  </div>
   </body>
 </html>
