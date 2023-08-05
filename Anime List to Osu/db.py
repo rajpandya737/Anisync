@@ -14,7 +14,7 @@ def main():
     #     add_anime_by_list(anime_list)
     #     time.sleep(45)
     #     print(start, end, "end")
-    update_anime_links_and_songs("community/forums", "Does not exist", "No song found")
+    # update_anime_links_and_songs("community/forums", "Does not exist", "No song found")
     pass
 
 

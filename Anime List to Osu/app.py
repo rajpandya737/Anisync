@@ -21,7 +21,7 @@ def search():
     if request.method == "POST":
         user = request.form["user"]
         session["user"] = user
-        session["anime_info"] = convertor(user, 0, 30)
+        #session["anime_info"] = convertor(user, 0, 30)
         return redirect(url_for("user"))
     return render_template("search.html")
 
