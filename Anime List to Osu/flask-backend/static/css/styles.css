@@ -1,4 +1,4 @@
-/* style.css */
+/* styles.css */
 
 html, body {
     width: 100vw;
@@ -13,7 +13,7 @@ html, body {
   }
   
   img {
-    max-width: 100%;
+    max-width: 40px;
   }
   
   h1 {
@@ -41,7 +41,7 @@ html, body {
 
   .main-nav {
     grid-area: mn;
-    padding: 0 30px 0 20px;
+    padding: 0 150px 0 0px;
   }
 
   .main-nav a {
@@ -162,33 +162,34 @@ margin: 0 auto;
 
 /* Add a container for the cards */
 .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Adjust this property to align the cards horizontally as needed */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px
   }
   
   .card {
     border: 1px solid #ccc;
     padding: 10px;
-    margin: 10px;
+    margin: 5px; /* Adjust this value to reduce the space between cards */
     width: 250px;
     text-align: center;
-    background-color: #f9f9f9;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    background-color: #282828;
+    /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
   }
   
 
   .hover-img {
-    background-color: #000;
-    color: #fff;
+    background-color: transparent;
+    color: #ffffff;
     display: inline-block;
     margin: 8px;
-    max-width: 320px;
-    min-width: 240px;
+    /* max-width: 320px;
+    min-width: 200px; */
+    max-width: 200px;
     overflow: hidden;
     position: relative;
     text-align: center;
-    width: 100%;
 }
 
 .hover-img * {
@@ -199,8 +200,8 @@ margin: 0 auto;
 .hover-img:before,
 .hover-img:after {
     background-color: rgba(0, 0, 0, 0.5);
-    border-top: 32px solid rgba(0, 0, 0, 0.5);
-    border-bottom: 32px solid rgba(0, 0, 0, 0.5);
+    border-top: 0px solid rgba(0, 0, 0, 0.5);
+    border-bottom: 0px solid rgba(0, 0, 0, 0.5);
     position: absolute;
     top: 0;
     bottom: 0;
@@ -211,12 +212,15 @@ margin: 0 auto;
     z-index: 1;
     opacity: 0;
     transform: scaleY(2);
+    border-radius: 10px
 }
 
 .hover-img img {
     vertical-align: top;
     max-width: 100%;
+    height: 310px;
     backface-visibility: hidden;
+    border-radius: 10px
 }
 
 .hover-img figcaption {
@@ -265,3 +269,27 @@ margin: 0 auto;
     margin: 0;
     padding: 0;
   }
+
+  .hover-img:hover h3 {
+    opacity: 1;
+    font-size: 16px
+}
+
+  .hover-img h4 {
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 10px;
+    color: #ffffff;
+    font-size: 12px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.hover-img:hover h4 {
+    opacity: 1;
+    font-size: 12px
+}
