@@ -5,16 +5,16 @@ import re
 
 
 def main():
-    # user = "Kyoko_52"
-    # for i in range(40):
-    #     start = 0 + 30*i
-    #     end = 300 + 30*i
-    #     print(start, end, "start")
-    #     anime_list = convertor(user, start, end)
-    #     add_anime_by_list(anime_list)
-    #     time.sleep(45)
-    #     print(start, end, "end")
-    # update_anime_links_and_songs("community/forums", "Does not exist", "No song found")
+    user = "valoon"
+    for i in range(40):
+        start = 0 + 30*i
+        end = 1000 + 30*i
+        print(start, end, "start")
+        anime_list = convertor(user, start, end)
+        add_anime_by_list(anime_list)
+        time.sleep(45)
+        print(start, end, "end")
+    # update_anime_links_and_songs("community/forums", "Does not exist", "No song found")                                               
     pass
 
 
@@ -27,7 +27,7 @@ def set_song_to_none():
     c.execute(update_query)
 
 
-conn = sqlite3.connect("anime_list.sqlite")
+conn = sqlite3.connect("database/anime_list.sqlite")
 c = conn.cursor()
 
 

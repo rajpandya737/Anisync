@@ -25,11 +25,8 @@ def mal(user):
     source = str(html_list)
     start_sep = "&quot;,&quot;anime_title_eng&quot;:&quot;"
     end_sep = "&quot;,&quot;anime_num_episodes&quot"
-    results = []
     tmp = source.split(start_sep)
-    for par in tmp:
-        if end_sep in par:
-            results.append(par.split(end_sep)[0])
+    results = [par.split(end_sep)[0] for par in tmp if end_sep in par]
 
     return results
 
@@ -46,9 +43,10 @@ def get_google_results(search_term):
     linkElements = soup.select(".kCrYT > a")
     # print(linkElements)
     linkToOpen = min(3, len(linkElements))
-    to_return = []
-    for i in range(linkToOpen):
-        to_return.append("https://www.google.com" + linkElements[i].get("href"))
+    to_return = [
+        "https://www.google.com" + linkElements[i].get("href")
+        for i in range(linkToOpen)
+    ]
     return extract_anime_id(to_return[0])
 
 
@@ -84,16 +82,11 @@ def get_links(input_string):
     urls_with_link_https = re.findall(pattern, input_string)
     links = []
     # Print the extracted URLs
-    for url in urls_with_link_https:
-        links.append(url)
-    return links
+    return [url for url in urls_with_link_https]
 
 
 def get_first_non_empty(data):
-    for item in data:
-        if item:
-            return item
-    return [None]
+    return next((item for item in data if item), [None])
 
 
 def get_links_by_anime_google(search_term):
@@ -103,9 +96,11 @@ def get_links_by_anime_google(search_term):
     linkElements = soup.select(".kCrYT > a")
     # print(linkElements)
     linkToOpen = min(2, len(linkElements))
-    to_return = []
-    for i in range(linkToOpen):
-        to_return.append("https://www.google.com" + linkElements[i].get("href"))
+    to_return = [
+        "https://www.google.com" + linkElements[i].get("href")
+        for i in range(linkToOpen)
+    ]
+
     try:
         return to_return[0]
     except IndexError:
@@ -117,11 +112,7 @@ def remove_blank_entries(lst):
 
 
 def decode_unicode(lst):
-    decoded_list = []
-    for entry in lst:
-        decoded_entry = entry.encode("ascii", "ignore").decode("utf-8")
-        decoded_list.append(decoded_entry)
-    return decoded_list
+    return [entry.encode("ascii", "ignore").decode("utf-8") for entry in lst]
 
 
 def scrape_osu(link):
@@ -140,6 +131,7 @@ convert_to_string = lambda input_string: input_string.encode().decode("unicode_e
 
 def convertor(user, s, e):
     conn = sqlite3.connect("database/anime_list.sqlite")
+    not_in_db = 0
     c = conn.cursor()
     anime_list = decode_unicode(remove_blank_entries(mal(user)[s:e]))
     list_info = []
@@ -153,7 +145,7 @@ def convertor(user, s, e):
             if anime_type == "TV":
                 google_search_term = f"{anime} Osu Beatmap Anime"
                 link = get_links_by_anime_google(google_search_term)
-                if "//osu.ppy.sh/beatmapsets/" not in link:
+                if "//osu.ppy.sh/beatmapsets/" not in link or "discussion" in link:
                     link = None
                 if link is not None:
                     song = scrape_osu(link)
@@ -169,6 +161,7 @@ def convertor(user, s, e):
                 song = "No song found"
             anime = convert_to_string(anime)
             list_info.append([anime, song, img, link])
+            not_in_db += 1
         else:
             select_query = """
             SELECT * FROM anime
@@ -193,5 +186,7 @@ def convertor(user, s, e):
                     )
             except Exception as e:
                 list_info.append([anime, "No song", ERROR_IMG_URL, "Does not exist"])
+        if not_in_db == 10:
+            break
     conn.close()
     return list_info
