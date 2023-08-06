@@ -1,21 +1,22 @@
 import sqlite3
 from data_processing import convertor
 import time
-import re
 
 
 def main():
-    user = "valoon"
-    for i in range(40):
-        start = 0 + 30*i
-        end = 1000 + 30*i
-        print(start, end, "start")
-        anime_list = convertor(user, start, end)
-        add_anime_by_list(anime_list)
-        time.sleep(45)
-        print(start, end, "end")
+    # user = "valoon"
+    # for i in range(40):
+    #     start = 0 + 30*i
+    #     end = 1000 + 30*i
+    #     print(start, end, "start")
+    #     anime_list = convertor(user, start, end)
+    #     add_anime_by_list(anime_list)
+    #     time.sleep(45)
+    #     print(start, end, "end")
     # update_anime_links_and_songs("community/forums", "Does not exist", "No song found")                                               
     pass
+
+
 
 
 def set_song_to_none():
@@ -26,10 +27,8 @@ def set_song_to_none():
     """
     c.execute(update_query)
 
-
 conn = sqlite3.connect("database/anime_list.sqlite")
 c = conn.cursor()
-
 
 def no_map(anime_name, anime_song, anime_img):
     remove_anime(anime_name)
@@ -63,16 +62,16 @@ def update_anime_links_and_songs(old_word, new_link, new_song):
 
     conn.commit()
 
-
-# c.execute(
-#     """CREATE TABLE anime (
-#     anime_name DATATYPE,
-#     anime_song DATATYPE,
-#     anime_img DATATYPE,
-#     osu_link DATATYPE
-# )
-# """
-# )
+def create_table():
+    c.execute(
+        """CREATE TABLE anime (
+        anime_name DATATYPE,
+        anime_song DATATYPE,
+        anime_img DATATYPE,
+        osu_link DATATYPE
+    )
+    """
+    )
 
 
 def delete_rows_by_id(start_row, end_row):

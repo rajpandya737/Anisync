@@ -1,7 +1,6 @@
 from flask import (
     Flask,
     request,
-    jsonify,
     render_template,
     redirect,
     url_for,
@@ -9,12 +8,12 @@ from flask import (
 )
 from data_processing import convertor
 import os
-from dotenv import load_dotenv
-import json
+import dotenv
 
-load_dotenv()
+dotenv_path = os.path.join(os.path.dirname(__file__), 'instance', '.env')
+dotenv.load_dotenv(dotenv_path)
 app = Flask(__name__)
-app.secret_key = "hello"
+app.secret_key = os.getenv("SECRET_KEY")
 
 @app.route("/search", methods=["GET", "POST"])
 def search():

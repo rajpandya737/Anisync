@@ -6,11 +6,10 @@
     <title>MAL to Osu!</title>
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/styles.css') }}"
+      href="{{ url_for('static', filename='css/list.css') }}"
     />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <script src="{{ url_for('static', filename='js/navBar.js') }}"></script>
-    <script defer src="{{ url_for('static', filename='js/scroll.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scroll.js') }}"></script>
   </head>
   <body>
 
@@ -19,10 +18,12 @@
       <div class="siteLogo">
         <a id="logo"><img src="{{ url_for('static', filename='images/aniosulogo.png') }}" alt="Website Logo"></a>
       </div>   
-      
-      
-      <nav class="main-nav"> 
 
+      <nav class="main-nav"> 
+        <a class="github-link" target="_blank" href="https://github.com/RajPandya737">Github</a>     
+      </nav>
+      
+      <nav class="sub-nav">
         <div class="search_container">
           <form action="" class="search" method="POST">
             <input class="search__input" type="text" id="user" name="user" placeholder="Enter Your MyAnimeList Username">
@@ -33,14 +34,7 @@
               </svg>
             </button>
           </form>
-        </div>   
-
-      </nav>
-
-
-
-      <nav class="sub-nav">
-        <a target="_blank" href="https://github.com/RajPandya737">Github</a>       
+        </div>    
       </nav>      
     </header>
 
@@ -50,7 +44,6 @@
   
     <div class="card-container">
       {% for anime in anime_info %}
-      <!-- <div class="card"> -->
         {% if anime[3] != 'Does not exist' %}
         <a href="{{ anime[3] }}" target="_blank" data-aos="fade-up">
         {% else %} 
@@ -69,10 +62,12 @@
           </figcaption>
         </figure>
       </a>
-  
-      <!-- </div> -->
       {% endfor %}
     </div>
+
+    <a href="#" class="to-top">
+      <i class="fas fa-chevron-up">&#x2191;</i>
+    </a>
     <!-- <script>
       // const anime_data = {{ anime_info | tojson }}
     </script> -->
