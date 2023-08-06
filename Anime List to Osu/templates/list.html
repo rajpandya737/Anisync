@@ -8,7 +8,9 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/styles.css') }}"
     />
-    <script src="{{ url_for('static', filename='js/scroll.js') }}"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="{{ url_for('static', filename='js/navBar.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='js/scroll.js') }}"></script>
   </head>
   <body>
 
@@ -50,25 +52,23 @@
       {% for anime in anime_info %}
       <!-- <div class="card"> -->
         {% if anime[3] != 'Does not exist' %}
-        <a href="{{ anime[3] }}" target="_blank">
+        <a href="{{ anime[3] }}" target="_blank" data-aos="fade-up">
+        {% else %} 
+        <a target="_blank" data-aos="fade-up">
         {% endif %}
         <figure class="hover-img">
           <img class="img{{ loop.index0 }}" src="{{ anime[2] }}" alt="" title="{{ anime[0] }}" />
           <figcaption>
             <h3>{{ anime[0] }}</h3>
-
             {% if anime[3] != 'Does not exist' %}
-            <h4 href="{{ anime[3] }}" >{{ anime[1] }}</h4>
+            <h4>{{ anime[1] }}</h4>
             {% else %}
             <h4>Not Available</h4>
             {% endif %}
-
             <h4> </h4>
           </figcaption>
         </figure>
-        {% if anime[3] != 'Does not exist' %}
       </a>
-      {% endif %}
   
       <!-- </div> -->
       {% endfor %}
@@ -76,7 +76,11 @@
     <!-- <script>
       // const anime_data = {{ anime_info | tojson }}
     </script> -->
-    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
   </div>
+  <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
   </body>
 </html>
