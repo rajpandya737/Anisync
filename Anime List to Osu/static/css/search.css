@@ -1,130 +1,136 @@
-
-html, body {
-    width: 100vw;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    background-color: var(--primary);
-    color: var(--light);
-    font-family: Arial, Helvetica, sans-serif;
-    box-sizing: border-box;
-    line-height: 1.4;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  img {
-    max-width: 40px;
-  }
-  
-  h1 {
-    padding-top: 20px;  
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-
-  header {
-    position: relative; /* Set a default position */
-    padding: 20px 20px 0 20px;
-    top: 0;
-    display: grid;  
-    grid-gap:5px;
-    grid-template-columns: 1fr 4fr 1fr;
-    grid-template-areas: 
-     "nt mn mn sb . . . "; 
-    background-color: var(--primary);
-    width: 100%;
-    height: 55px;
-    margin-bottom: 0px;  
-    z-index: 100;
-  }
-
-  #logo {
-    color: #E50914;  
-    margin: 0; 
-    padding: 0; 
-  }
-
-  :root {
-    --primary: #141414;
-    --light: #F3F3F3;
-    --dark: 	#686868;
-  }
+html,
+body {
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: var(--primary);
+  color: var(--light);
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  line-height: 1.4;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height:100vh;
+  overflow:hidden; 
+  background:rgba(0,0,0,0.95) url("../images/anime_background.png");
+  background-size:cover;
+  position:relative;
+  background-blend-mode: darken;
+}
 
 
 
+img {
+  max-width: 40px;
+}
+
+h1 {
+  padding-top: 20px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+  position: relative; /* Set a default position */
+  padding: 20px 20px 0 20px;
+  top: 0;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-areas: "nt mn mn sb . . . ";
+  background-color: var(--primary);
+  width: 100%;
+  height: 55px;
+  margin-bottom: 0px;
+  z-index: 100;
+}
+
+#logo {
+  color: #e50914;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary: #141414;
+  --light: #f3f3f3;
+  --dark: #686868;
+}
 
 .searchContainer {
-    position: relative;
-    width: 600px;
-    margin: 0 auto;
-    
-    }
-    
-    .inputBox input {
-        width: 800px;
-        padding: 10px 0;
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        background: var(--primary);
-        border-radius: 5px;
-        outline: none;
-        color: #fff;
-        font-size: 1em;
-        margin: auto;
-    
-    }
-    
-    
-    .search_container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 10vh;
-        font-size: 1.4rem;
-    }
-    .search {
-        display: flex;
-    }
-    .search__input {
-        border: none;
-        background-color: #f4f2f2;
-        padding: 0.7rem 2rem;
-        border-radius: 100px;
-        margin-right: -3rem;
-        transition: transform 0.2s ease-in-out;
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-        width: 300px; 
-    }
-    .search__input:focus {
-        outline: none;
-        transform: scale(1.05);
-    }
-    .search__input::placeholder {
-        font-weight: 100;
-        color: #555454;
-    }
-    .search__input:focus + .search__button {
-        transform: translatex(0.8rem);
-    }
-    .search__button {
-        border: none;
-        background-color: transparent;
-        position: relative;
-        z-index: 20;
-        transition: transform 0.2s ease-in-out;
-    }
-    .search__button:focus {
-        outline: none;
-    }
-    .search__button:active {
-        transform: translatey(0.2rem);
-    }
-    .search__icon {
-        fill: #999;
-    }
+  position: relative;
+  width: 600px;
+  margin: 0 auto;
+}
 
+.inputBox input {
+  width: 800px;
+  padding: 10px 0;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: var(--primary);
+  border-radius: 5px;
+  outline: none;
+  color: #fff;
+  font-size: 1em;
+  margin: auto;
+}
 
+.search_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  font-size: 1.4rem;
+}
+.search {
+  display: flex;
+}
+.search__input {
+  border: none;
+  background-color: #f4f2f2;
+  padding: 0.7rem 2rem;
+  border-radius: 100px;
+  margin-right: -3rem;
+  transition: transform 0.2s ease-in-out;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  width: 300px;
+}
+.search__input:focus {
+  outline: none;
+  transform: scale(1.05);
+}
+.search__input::placeholder {
+  font-weight: 100;
+  color: #555454;
+}
+.search__input:focus + .search__button {
+  transform: translatex(0.8rem);
+}
+.search__button {
+  border: none;
+  background-color: transparent;
+  position: relative;
+  z-index: 20;
+  transition: transform 0.2s ease-in-out;
+}
+.search__button:focus {
+  outline: none;
+}
+.search__button:active {
+  transform: translatey(0.2rem);
+}
+.search__icon {
+  fill: #999;
+}
+
+.title-and-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
