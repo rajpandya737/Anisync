@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MAL to Osu!</title>
+    <title>MAL to Osu! View Maps</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/list.css') }}"
     />
+
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="{{ url_for('static', filename='js/scroll.js') }}"></script>
   </head>
@@ -19,9 +20,9 @@
         <a id="logo"><img src="{{ url_for('static', filename='images/aniosulogo.png') }}" alt="Website Logo"></a>
       </div>   
 
-      <nav class="main-nav"> 
+      <!-- <nav class="main-nav"> 
         <a class="github-link" target="_blank" href="https://github.com/RajPandya737">Github</a>     
-      </nav>
+      </nav> -->
       
       <nav class="sub-nav">
         <div class="search_container">
@@ -66,6 +67,9 @@
     </div>
 
     <a href="#" class="to-top">
+      <i class="fas fa-chevron-up">&#x2191;</i>
+    </a>
+    <a href="https://github.com/RajPandya737" class="to-top">
       <i class="fas fa-chevron-up">&#x2191;</i>
     </a>
     <!-- <script>

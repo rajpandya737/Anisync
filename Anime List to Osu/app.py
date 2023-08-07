@@ -33,7 +33,7 @@ def user():
     
     if "user" in session:
         user = session["user"]
-        anime = convertor(user, 0, 200)
+        anime = convertor(user, 0, 250)
         print(user)
         return render_template("list.html", anime_info=anime, user=user)
     return redirect(url_for("search"))
