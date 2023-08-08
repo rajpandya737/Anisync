@@ -16,7 +16,7 @@ body {
   align-items: center;
   min-height:100vh;
   overflow:hidden; 
-  background:rgba(0,0,0,0.95) url("../images/anime_background.png");
+  background:rgba(0,0,0,0.9) url("../images/anime_background.png");
   background-size:cover;
   position:relative;
   background-blend-mode: darken;
@@ -32,6 +32,7 @@ h1 {
   padding-top: 20px;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 50px;
 }
 
 header {
@@ -49,6 +50,25 @@ header {
   z-index: 100;
 }
 
+p{
+  font-size: 20px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.wrapper-first {
+  width: 100%;
+}
+
+.wrapper-second {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+;
+}
+
 #logo {
   color: #e50914;
   margin: 0;
@@ -63,13 +83,14 @@ header {
 
 .searchContainer {
   position: relative;
-  width: 600px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
 .inputBox input {
-  width: 800px;
-  padding: 10px 0;
+  width: 1900px;
+  height: 100%;
+  padding: 10px 0 10px 0;
   border: 1px solid rgba(255, 255, 255, 0.25);
   background: var(--primary);
   border-radius: 5px;
@@ -92,13 +113,14 @@ header {
 .search__input {
   border: none;
   background-color: #f4f2f2;
-  padding: 0.7rem 2rem;
+  padding: 1.0rem 3rem;
   border-radius: 100px;
   margin-right: -3rem;
   transition: transform 0.2s ease-in-out;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   width: 300px;
+  font-size: 18px;
 }
 .search__input:focus {
   outline: none;
@@ -107,9 +129,11 @@ header {
 .search__input::placeholder {
   font-weight: 100;
   color: #555454;
+  font-size: 18px;
 }
 .search__input:focus + .search__button {
   transform: translatex(0.8rem);
+  font-size: 18px;
 }
 .search__button {
   border: none;
@@ -134,3 +158,5 @@ header {
   align-items: center;
   margin-bottom: 1rem;
 }
+
+
