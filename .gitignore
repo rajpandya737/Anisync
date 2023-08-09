@@ -198,5 +198,4 @@ sketch
 # Ignore all .env files in any subdirectory
 **/.env
 
-Anime List to Osu/database/anime_list.sqlite
-Anime List to Osu/flask-backend/anime_list copy.sqlite
+Anime List to Osu/database

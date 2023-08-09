@@ -20,7 +20,6 @@ def search():
     if request.method == "POST":
         user = request.form["user"]
         session["user"] = user
-        #session["anime_info"] = convertor(user, 0, 30)
         return redirect(url_for("user"))
     return render_template("search.html")
 
@@ -33,7 +32,7 @@ def user():
     
     if "user" in session:
         user = session["user"]
-        anime = convertor(user, 0, 250)
+        anime = convertor(user, 0, 300)
         print(user)
         return render_template("list.html", anime_info=anime, user=user)
     return redirect(url_for("search"))

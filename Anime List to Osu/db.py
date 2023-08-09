@@ -1,19 +1,21 @@
 import sqlite3
-from data_processing import convertor
+from data_processing import convertor, get_google_results
 import time
+import requests
+import bs4
+from mal import AnimeSearch
 
 
 def main():
-    # user = "valoon"
-    # for i in range(40):
-    #     start = 0 + 30*i
-    #     end = 1000 + 30*i
-    #     print(start, end, "start")
-    #     anime_list = convertor(user, start, end)
-    #     add_anime_by_list(anime_list)
-    #     time.sleep(45)
-    #     print(start, end, "end")
-    # update_anime_links_and_songs("community/forums", "Does not exist", "No song found")                                               
+    user = "test_account_737"
+    for i in range(5):
+        start = 60 + 20*i
+        end = 80 + 20*i
+        print(start, end, "start")
+        anime_list = convertor(user, start, end)
+        add_anime_by_list(anime_list)
+        time.sleep(30)
+        print(start, end, "end")
     pass
 
 
@@ -27,7 +29,7 @@ def set_song_to_none():
     """
     c.execute(update_query)
 
-conn = sqlite3.connect("database/anime_list.sqlite")
+conn = sqlite3.connect("database/translated_anime_list.sqlite")
 c = conn.cursor()
 
 def no_map(anime_name, anime_song, anime_img):
@@ -105,6 +107,39 @@ def add_anime_by_list(anime_list):
     conn.commit()
 
 
+def get_anime_names():
+    query = "SELECT rowid, anime_name FROM anime"
+    c.execute(query)
+    anime_data = c.fetchall()
+
+    return [(row[0], row[1]) for row in anime_data]
+
+def update_anime_name(row_id, name):
+    query = "UPDATE anime SET anime_name = ? WHERE rowid = ?"
+    c.execute(query, (name, row_id))
+
+get_japanese_name = lambda s: AnimeSearch(s).results[0].title
+
+def get_japanese_names(english_names):
+    japanese_names = []
+    for name in english_names:
+        japanese_name = get_japanese_name(name)
+        japanese_names.append(japanese_name)
+        print(japanese_name)
+    return japanese_names
+
+# print(get_japanese_names(get_anime_names()[0:20]))
+
+# for anime in get_anime_names()[20:100]:
+#     id = anime[0]
+#     name = anime[1]
+#     new_name = get_japanese_name(name)
+#     update_anime_name(id, new_name)
+
+
+
 main()
 conn.commit()
 conn.close()
+
+
