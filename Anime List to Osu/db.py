@@ -1,22 +1,43 @@
 import sqlite3
-from data_processing import convertor, get_google_results
+from data_processing import convertor
 import time
-import requests
-import bs4
 from mal import AnimeSearch
+import unicodedata
 
 
 def main():
-    user = "test_account_737"
+    user = "raj_23"
     for i in range(5):
-        start = 60 + 20*i
-        end = 80 + 20*i
+        start = 0 + 20*i
+        end = 350 + 20*i
         print(start, end, "start")
         anime_list = convertor(user, start, end)
         add_anime_by_list(anime_list)
         time.sleep(30)
         print(start, end, "end")
     pass
+
+
+def convert_unicode_to_string(unicode_str: str) -> str:
+    converted_chars = []
+    for char in unicode_str:
+        if ord(char) > 127:  # Characters outside ASCII range
+            converted_chars.append('\\u{:04X}'.format(ord(char)).lower())
+        else:
+            converted_chars.append(char)
+    return ''.join(converted_chars)
+
+def update_anime_names_unicode(start: int, end: int):
+
+    c.execute("SELECT anime_name FROM anime")
+    rows = c.fetchall()
+
+    for row in rows[start:end]:
+        old_name = row[0]
+        new_name = convert_unicode_to_string(old_name)
+        print(new_name) if new_name != old_name else print("", end="")
+        c.execute("UPDATE anime SET anime_name = ? WHERE anime_name = ?", (new_name, old_name))
+        conn.commit()
 
 
 
@@ -32,17 +53,17 @@ def set_song_to_none():
 conn = sqlite3.connect("database/translated_anime_list.sqlite")
 c = conn.cursor()
 
-def no_map(anime_name, anime_song, anime_img):
+def no_map(anime_name: str, anime_song: str, anime_img: str):
     remove_anime(anime_name)
     insert_anime(anime_name, anime_song, anime_img, "Does not exist")
 
 
-def insert_and_delete(anime_name, anime_song, anime_img, osu_link):
+def insert_and_delete(anime_name: str, anime_song: str, anime_img: str, osu_link: str):
     remove_anime(anime_name)
     insert_anime(anime_name, anime_song, anime_img, osu_link)
 
 
-def update_anime_links_and_songs(old_word, new_link, new_song):
+def update_anime_links_and_songs(old_word: str, new_link: str, new_song: str):
 
     # Fetch anime records containing the old_word in the osu_link
     c.execute("SELECT * FROM anime")
@@ -76,17 +97,17 @@ def create_table():
     )
 
 
-def delete_rows_by_id(start_row, end_row):
+def delete_rows_by_id(start_row: int, end_row: int):
     c.execute("DELETE FROM anime WHERE rowid BETWEEN ? AND ?", (start_row, end_row))
     conn.commit()
 
 
-def remove_anime(anime_name_to_remove):
+def remove_anime(anime_name_to_remove: str):
     c.execute("DELETE FROM anime WHERE anime_name = ?", (anime_name_to_remove,))
     conn.commit()
 
 
-def insert_anime(anime_name, anime_song, anime_img, osu_link):
+def insert_anime(anime_name: str, anime_song: str, anime_img: str, osu_link: str):
     c.execute(
         "INSERT INTO anime VALUES (?, ?, ?, ?)",
         (anime_name, anime_song, anime_img, osu_link),
@@ -94,7 +115,7 @@ def insert_anime(anime_name, anime_song, anime_img, osu_link):
     conn.commit()
 
 
-def add_anime_by_list(anime_list):
+def add_anime_by_list(anime_list: list):
     for anime in anime_list:
         anime_name = anime[0]  # Extract the anime_name from the tuple
         c.execute("SELECT COUNT(*) FROM anime WHERE anime_name = ?", (anime_name,))
@@ -114,27 +135,19 @@ def get_anime_names():
 
     return [(row[0], row[1]) for row in anime_data]
 
-def update_anime_name(row_id, name):
+def update_anime_name(row_id: int, name: str):
     query = "UPDATE anime SET anime_name = ? WHERE rowid = ?"
     c.execute(query, (name, row_id))
 
 get_japanese_name = lambda s: AnimeSearch(s).results[0].title
 
-def get_japanese_names(english_names):
+def get_japanese_names(english_names: str):
     japanese_names = []
     for name in english_names:
         japanese_name = get_japanese_name(name)
         japanese_names.append(japanese_name)
         print(japanese_name)
     return japanese_names
-
-# print(get_japanese_names(get_anime_names()[0:20]))
-
-# for anime in get_anime_names()[20:100]:
-#     id = anime[0]
-#     name = anime[1]
-#     new_name = get_japanese_name(name)
-#     update_anime_name(id, new_name)
 
 
 

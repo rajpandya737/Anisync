@@ -36,7 +36,7 @@ def mal(user: str) -> list:
         return results
 
 
-def get_google_results(search_term):
+def get_google_results(search_term: str) -> str or None:
     # Returns the first google search results for the search term
     res = requests.get(f"https://www.google.com/search?q={search_term}")
     res.raise_for_status()
@@ -54,7 +54,7 @@ def get_google_results(search_term):
         return None
 
 
-def extract_anime_id(url):
+def extract_anime_id(url: str) -> str or None:
     # Extracts the anime ID from a google link
     try:
         match = re.search(r"/(\d+)/", url)
@@ -67,7 +67,7 @@ def extract_anime_id(url):
 # google_search_term = f"Gintama Osu Beatmap Anime"
 # print(get_google_results(google_search_term))
 
-def get_anime_type(anime):
+def get_anime_type(anime:str) -> tuple:
     # Getting ID from google search results instead of using the API is faster
     # and has to make half as many calls, but there is a potential for error
     google_result = get_google_results(f"{anime} MyAnimeList")
@@ -83,7 +83,7 @@ def get_anime_type(anime):
         return img, anime_type
 
 
-def scrape_osu(link):
+def scrape_osu(link:str) -> str:
     # Returns the artist and title of the song from the osu beatmap link
     result = requests.get(link)
     soup = bs4.BeautifulSoup(result.text, "html.parser")
@@ -96,7 +96,7 @@ def scrape_osu(link):
 
 
 
-def convertor(user, s, e):
+def convertor(user: str, s:int, e:int) -> list:
     conn = sqlite3.connect("database/translated_anime_list.sqlite")
     c = conn.cursor()
     # api = Ossapi(KEY, PASSWORD)
@@ -121,9 +121,9 @@ def convertor(user, s, e):
                 else:
                     song = "No song found"
                     link = "Does not exist"
-
-            elif anime_type != "TV":
-                link = [f"Some {anime_type}'s are not supported yet"]
+            else:
+                link = f"Not Supported Yet"
+                song = "No song found"
 
             if song[0] is None or song[0] == "None":
                 link = "Does not exist"
@@ -157,81 +157,3 @@ def convertor(user, s, e):
     conn.close()
     return list_info
 
-
-
-# def convertor(user, s, e):
-#     # Takes a MAL username and returns a list of lists containing anime name,
-#     # song name, image url, and osu! beatmap using all the previous functions
-#     conn = sqlite3.connect("database/translated_anime_list.sqlite")
-#     c = conn.cursor()
-#     not_in_db = 0
-#     anime_list = decode_unicode(remove_blank_entries(mal(user)[s:e]))
-#     list_info = []
-#     for anime in anime_list:
-#         print(anime)
-#         c.execute("SELECT 1 FROM anime WHERE anime_name = ? LIMIT 1", (anime,))
-#         result = c.fetchone()
-#         # print(anime)
-#         if not result:
-#             try:
-#                 img, anime_type = get_anime_type(anime)
-#                 print(img, anime_type)
-#                 song = [None]
-#                 if anime_type == "TV":
-#                     print("this far made it")
-#                     google_search_term = f"{anime} Osu Beatmap Anime"
-#                     link = get_google_results(google_search_term)
-#                     if link is not None and not link.startwith("https://www.google.com/url?q=https://osu.ppy.sh/beatmapsets/") or "discussion" in link:
-#                         link = None
-#                         print("first")
-#                     elif link is not None:
-#                         print("second")
-#                         song = scrape_osu(link)
-#                     else:
-#                         print("last")
-#                         song = "No song found"
-#                         link = "Does not exist"
-#                     print(song, link)
-
-#                 if anime_type != "TV":
-#                     link = [f"Some {anime_type}'s are not supported yet"]
-
-#                 if song[0] is None or song[0] == "None":
-#                     link = "Does not exist"
-#                     song = "No song found"
-#                 anime = convert_to_string(anime)
-#                 list_info.append([anime, song, img, link])
-#                 not_in_db += 1
-#             except Exception as e:
-#                 print(e)
-#                 list_info.append([anime, "No song", ERROR_IMG_URL, "Does not exist"])
-#                 not_in_db += 1
-#         else:
-#             select_query = """
-#             SELECT * FROM anime
-#             WHERE anime_name = ?;
-#         """
-#             try:
-#                 # Execute the select query
-#                 c.execute(select_query, (anime,))
-#                 row = c.fetchone()
-
-#                 if row:
-#                     # If a row is found, you can access the columns like this
-#                     db_anime_name, db_anime_song, db_anime_img, db_osu_link = row
-#                     db_anime_name = convert_to_string(db_anime_name)
-#                     list_info.append(
-#                         [db_anime_name, db_anime_song, db_anime_img, db_osu_link]
-#                     )
-#                 else:
-#                     anime = convert_to_string(anime)
-#                     list_info.append(
-#                         [anime, "No song", ERROR_IMG_URL, "Does not exist"]
-#                     )
-#             except Exception as e:
-#                 list_info.append([anime, "No song", ERROR_IMG_URL, "Does not exist"])
-#         if not_in_db == 10:
-#             break
-
-#     conn.close()
-#     return list_info
