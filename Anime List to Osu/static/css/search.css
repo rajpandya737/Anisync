@@ -15,18 +15,11 @@ body {
   justify-content: center;
   align-items: center;
   min-height:100vh;
-  overflow:hidden; 
-  background:rgba(0,0,0,0.9) url("../images/anime_background.png");
-  background-size:cover;
-  position:relative;
-  background-blend-mode: darken;
+  z-index: -10;
+  background:rgba(0,0,0,0.9);
+  /* overflow:hidden;  */
 }
 
-
-
-img {
-  max-width: 40px;
-}
 
 h1 {
   padding-top: 20px;
@@ -56,10 +49,16 @@ p{
   font-family: Arial, Helvetica, sans-serif;
 }
 
-
-.wrapper-first {
-  width: 100%;
+.background-image {
+  position: absolute;
+  top:0;
+  left:0;
+  max-width:100%;
+  background-size:cover;
+  mix-blend-mode: darken;
+  z-index: -1;
 }
+
 
 .wrapper-second {
   width: 100%;
@@ -158,5 +157,4 @@ p{
   align-items: center;
   margin-bottom: 1rem;
 }
-
 
