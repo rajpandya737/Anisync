@@ -27,9 +27,7 @@ def mal(user: str) -> list:
         soup = bs4.BeautifulSoup(response.text, "html.parser")
         html_list = soup.find("table", attrs={"class": "list-table"})
         source = str(html_list)
-        #start_sep = "&quot;,&quot;anime_title_eng&quot;:&quot;"
         start_sep = ",&quot;anime_title&quot;:&quot;"
-        #end_sep = "&quot;,&quot;anime_num_episodes&quot"
         end_sep = "&quot;,&quot;anime_title_eng&quot;:&quot;"
         tmp = source.split(start_sep)
         results = [par.split(end_sep)[0] for par in tmp if end_sep in par]
@@ -83,7 +81,7 @@ def get_anime_type(anime:str) -> tuple:
         return img, anime_type
 
 
-def scrape_osu(link:str) -> str:
+def scrape_osu(link:str):
     # Returns the artist and title of the song from the osu beatmap link
     result = requests.get(link)
     soup = bs4.BeautifulSoup(result.text, "html.parser")
@@ -92,7 +90,7 @@ def scrape_osu(link:str) -> str:
         artist_and_title = title_tag.text.strip()
         return artist_and_title.split("·")[0]
     else:
-        return "Title Not Found"
+        return [None]
 
 
 
