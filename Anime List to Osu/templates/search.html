@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MAL to Osu! Search</title>
+    <meta name="description" content="Find Osu! Beatmaps from your MyAnimeList profile with just one click of a button">
+    <title>Convert MAL to Osu! Beatmaps</title>
     <!-- Jinja css linkng -->
     <!-- 
   <link
@@ -14,8 +15,24 @@
     <link rel="stylesheet" href="../static/css/search.css" />
   </head>
   <body>
+      
+    
+    <header id="main-header">
+      <div class="siteLogo">
+        <a id="logo"><img src="{{ url_for('static', filename='images/aniosulogo.png') }}" alt="Website Logo"></a>
+      </div>   
 
-    <img src="../static/images/anime_background.png" alt="" class="background-image"></div>
+      <nav class="main-nav"> 
+        <a class="github-link" target="_blank" href="https://github.com/RajPandya737/MAL-to-Osu-Beatmaps">Github</a>  
+        <a class="about-link" target="_blank" href="{{ url_for('about') }}">About</a>    
+      </nav>
+    </header>
+
+
+    
+    <div class="background-image-container">
+      <img src="../static/images/anime_background.png" alt="anime card background" class="background-image"></div>
+    </div>
     <div class="head-wrapper">
           <h1>Convert Your Anime List to Osu! Beatmaps</h1>
           <div class="search_container">
@@ -46,6 +63,10 @@
             </form>
           </div>
           <p class="example">For example: raj_23</p>
+      </div>
+
+      <div class="secondary-wrapper">
+        
       </div>
 
 

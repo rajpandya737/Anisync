@@ -23,6 +23,10 @@ def search():
         return redirect(url_for("user"))
     return render_template("search.html")
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
 @app.route("/view-maps", methods=["GET", "POST"])  # Include the 'username' parameter in the route
 def user():
     if request.method == "POST":
