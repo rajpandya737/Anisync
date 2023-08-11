@@ -14,12 +14,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height:100vh;
+  min-height: 100vh;
   z-index: -10;
-  background:rgba(0,0,0,0.9);
+  background: var(--primary);
   /* overflow:hidden;  */
 }
-
 
 h1 {
   padding-top: 20px;
@@ -46,16 +45,11 @@ header {
   margin-right: 60px;
 }
 
-
-
-p{
+p {
   font-size: 20px;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
 }
-
-
-
 
 .background-image-container {
   position: absolute;
@@ -78,13 +72,11 @@ p{
   z-index: -1;
 }
 
-
 .head- {
   width: 100%;
   align-items: center;
   justify-content: center;
   display: flex;
-;
 }
 
 #logo {
@@ -99,18 +91,18 @@ p{
   width: 200px;
   max-height: 100%;
   padding-left: 30px;
-  padding-top: 0px;  
+  padding-top: 0px;
   margin-left: 40px;
 }
 
-.siteLogo img {  
-  height: 35px;     
+.siteLogo img {
+  height: 35px;
 }
 
 #logo {
-  color: #E50914;  
-  margin: 0; 
-  padding: 0; 
+  color: #e50914;
+  margin: 0;
+  padding: 0;
 }
 
 .main-nav {
@@ -123,16 +115,13 @@ p{
 .main-nav a {
   color: var(--light);
   text-decoration: none;
-  margin-top: 20px; 
+  margin-top: 20px;
   margin-left: 30px;
 }
 
 .main-nav a:hover {
   color: var(--dark);
 }
-
-
-
 
 :root {
   --primary: #141414;
@@ -172,7 +161,7 @@ p{
 .search__input {
   border: none;
   background-color: #f4f2f2;
-  padding: 1.0rem 3rem;
+  padding: 1rem 3rem;
   border-radius: 100px;
   margin-right: -3rem;
   transition: transform 0.2s ease-in-out;
@@ -217,4 +206,3 @@ p{
   align-items: center;
   margin-bottom: 1rem;
 }
-

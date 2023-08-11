@@ -97,15 +97,18 @@ def scrape_osu(link:str):
 def convertor(user: str, s:int, e:int) -> list:
     conn = sqlite3.connect("database/translated_anime_list.sqlite")
     c = conn.cursor()
+    searched = 0
     # api = Ossapi(KEY, PASSWORD)
     anime_list = decode_unicode(remove_blank_entries(mal(user)[s:e]))
     #print(anime_list)
     list_info = []
     for anime in anime_list:
+
         c.execute("SELECT 1 FROM anime WHERE anime_name = ? LIMIT 1", (anime,))
         result = c.fetchone()
-        print(anime)
+        #print(anime)
         if not result:
+            searched+=1
             print("Not in database")
             img, anime_type = get_anime_type(anime)
             song = [None]
@@ -152,6 +155,8 @@ def convertor(user: str, s:int, e:int) -> list:
                     )
             except Exception as e:
                 list_info.append([anime, "No song", ERROR_IMG_URL, "Does not exist"])
+        if searched>5:
+            break
     conn.close()
     return list_info
 

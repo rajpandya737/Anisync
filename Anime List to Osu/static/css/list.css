@@ -52,7 +52,6 @@ header {
   --dark: 	#686868;
 }
 
-
   .main-nav {
     grid-area: mn;
     padding: 0 150px 0 0px;
@@ -276,11 +275,7 @@ header {
     opacity: 1;
 }
 
-:root {
-    --primary: #141414;
-    --light: #F3F3F3;
-    --dark: 	#686868;
-  }
+
 
   .wrapper {
     margin: 0;
