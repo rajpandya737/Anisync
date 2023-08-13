@@ -1,16 +1,9 @@
-from flask import (
-    Flask,
-    request,
-    render_template,
-    redirect,
-    url_for,
-    session
-)
+from flask import Flask, request, render_template, redirect, url_for, session
 from data_processing import convertor
 import os
 import dotenv
 
-dotenv_path = os.path.join(os.path.dirname(__file__), 'instance', '.env')
+dotenv_path = os.path.join(os.path.dirname(__file__), "instance", ".env")
 dotenv.load_dotenv(dotenv_path)
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
@@ -33,17 +26,21 @@ def search():
         return redirect(url_for("user"))
     return render_template("search.html")
 
+
 @app.route("/about")
 def about():
     return render_template("about.html")
 
-@app.route("/view-maps", methods=["GET", "POST"])  # Include the 'username' parameter in the route
+
+@app.route(
+    "/view-maps", methods=["GET", "POST"]
+)  # Include the 'username' parameter in the route
 def user():
     if request.method == "POST":
         user = request.form["user"]
         session["user"] = user
         return redirect(url_for("user"))
-    
+
     if "user" in session:
         user = session["user"]
         anime = convertor(user, 0, 300)

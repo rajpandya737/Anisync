@@ -5,17 +5,18 @@ from mal import AnimeSearch
 
 
 def main():
-    # user = "raj_23"
-    # for i in range(5):
-    #     start = 0 + 20*i
-    #     end = 350 + 20*i
-    #     print(start, end, "start")
-    #     anime_list = convertor(user, start, end)
-    #     add_anime_by_list(anime_list)
-    #     time.sleep(30)
-    #     print(start, end, "end")
+    
     pass
 
+def add_user_to_db(user: str, start: int, end: int):
+    for i in range(5):
+        start+= 20*i
+        end += 20*i
+        print(start, end, "start")
+        anime_list = convertor(user, start, end)
+        add_anime_by_list(anime_list)
+        time.sleep(30)
+        print(start, end, "end")
 
 def convert_unicode_to_string(unicode_str: str) -> str:
     converted_chars = []

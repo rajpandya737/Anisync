@@ -53,10 +53,6 @@ def extract_anime_id(url: str) -> str or None:
     return None
 
 
-# google_search_term = f"Gintama Osu Beatmap Anime"
-# print(get_google_results(google_search_term))
-
-
 def get_anime_type(anime: str) -> tuple:
     # Getting ID from google search results instead of using the API is faster
     # and has to make half as many calls, but there is a potential for error

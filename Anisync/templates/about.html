@@ -19,204 +19,220 @@
     </title>
   </head>
   <body>
-    <div>
-      <header id="main-header">
-        <div class="siteLogo">
-          <a id="logo"
-            ><img
-              src="{{ url_for('static', filename='images/aniosulogo.png') }}"
-              alt="Website Logo"
-          /></a>
-        </div>
-
-        <nav class="main-nav">
-          <a
-            class="github-link"
-            target="_blank"
-            href="https://github.com/RajPandya737/MAL-to-Osu-Beatmaps"
-            >Github</a
-          >
-          <a class="about-link" target="_self" href="{{ url_for('search') }}"
-            >Search</a
-          >
-        </nav>
-      </header>
-
+    <div class="wrapper">
       <div>
-        <h1>About</h1>
-        <p>
-          Welcome to AniSync - Uniting Anime and Rhythm! Are you a passionate
-          anime lover who also enjoys the exhilarating world of rhythm games? If
-          so, you've just stumbled upon your new favorite online destination.
-          AniSync is a unique platform that bridges the gap between your anime
-          adventures and the pulse-pounding excitement of Osu! beatmaps. It's
-          time to amplify your entertainment. Experience and immerse yourself in
-          a realm where anime narratives and rhythm unite in spectacular
-          harmony. Your Anime Adventures. Rhythmically Enhanced.
-        </p>
-      </div>
-      <div>
-        <h1>FAQ</h1>
-        <div class="faq">
-          <div class="question">
-            <h2>1. How does AniSync work?</h2>
-            <svg width="15" height="10" viewBox="0 0 42 25">
-              <path
-                d="M3 3L21 21L39 3"
-                stroke="white"
-                stroke-width="7"
-                stroke-linecap="round"
-              />
-            </svg>
+        <header id="main-header">
+          <div class="siteLogo">
+            <a id="logo"
+              ><img
+                src="{{ url_for('static', filename='images/aniosulogo.png') }}"
+                alt="Website Logo"
+            /></a>
           </div>
-          <div class="answer">
-            <p>
-              Simply input your MAL username on our seach page. Our site
-              analyzes your anime list and matches them with osu! beatmaps
-              within our database, and then displays them to you. Even if the
-              anime does not appear within the database, we will still try to
-              find the closest match we can. Currently, we only display your top
-              300 anime, but we are working on a way to display all of your
-              anime.
-            </p>
+
+          <nav class="main-nav">
+            <a
+              class="github-link"
+              target="_blank"
+              href="https://github.com/RajPandya737/MAL-to-Osu-Beatmaps"
+              >Github</a
+            >
+            <a class="about-link" target="_self" href="{{ url_for('search') }}"
+              >Search</a
+            >
+          </nav>
+        </header>
+
+        <div>
+          <h1 class="main-h1">About</h1>
+          <p>
+            Welcome to AniSync - Uniting Anime and Rhythm! Are you a passionate
+            anime lover who also enjoys the exhilarating world of rhythm games?
+            If so, you've just stumbled upon your new favorite online
+            destination. AniSync is a unique platform that bridges the gap
+            between your anime adventures and the pulse-pounding excitement of
+            Osu! beatmaps. It's time to amplify your entertainment. Experience
+            and immerse yourself in a realm where anime narratives and rhythm
+            unite in spectacular harmony. Your Anime Adventures. Rhythmically
+            Enhanced.
+          </p>
+        </div>
+        <div>
+          <h1 class="main-h1">FAQ</h1>
+          <div class="faq">
+            <div class="question">
+              <h2 class="faq-h2">1. How does AniSync work?</h2>
+              <svg width="15" height="10" viewBox="0 0 42 25">
+                <path
+                  d="M3 3L21 21L39 3"
+                  stroke="white"
+                  stroke-width="7"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <div class="answer">
+              <p>
+                Simply input your MAL username on our seach page. Our site
+                analyzes your anime list and matches them with osu! beatmaps
+                within our database, and then displays them to you. Even if the
+                anime does not appear within the database, we will still try to
+                find the closest match we can. Currently, we only display your
+                top 300 anime, but we are working on a way to display all of
+                your anime.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq">
+            <div class="question">
+              <h2 class="faq-h2">2. Is there a cost to use AniSync?</h2>
+              <svg width="15" height="10" viewBox="0 0 42 25">
+                <path
+                  d="M3 3L21 21L39 3"
+                  stroke="white"
+                  stroke-width="7"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <div class="answer">
+              <p>
+                No, we want to give you the best experiance possible and as of
+                right now, we believe keeping this service free is the best
+                scenario for everyone
+              </p>
+            </div>
+          </div>
+
+          <div class="faq">
+            <div class="question">
+              <h2 class="faq-h2">
+                3. Some shows say unavaliable, why is that?
+              </h2>
+              <svg width="15" height="10" viewBox="0 0 42 25">
+                <path
+                  d="M3 3L21 21L39 3"
+                  stroke="white"
+                  stroke-width="7"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <div class="answer">
+              <p>
+                There are plently of reasons as to why this may show up, as of
+                right now, we do not support most OVA's, Movies, or Specials at
+                this time unless they are widely popular and have a large
+                fanbase. Another possibility is that we could not find a
+                suitable map for the anime in our search. If you would like to
+                suggest a map, please contact me and we will review it (contact
+                details at the bottom of the page).
+              </p>
+            </div>
+          </div>
+
+          <div class="faq">
+            <div class="question">
+              <h2 class="faq-h2">4. Can I suggest beatmaps?</h2>
+              <svg width="15" height="10" viewBox="0 0 42 25">
+                <path
+                  d="M3 3L21 21L39 3"
+                  stroke="white"
+                  stroke-width="7"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <div class="answer">
+              <p>
+                Absolutely! We encourage community engagement. If you come
+                across an osu! beatmap that perfectly complements an anime, you
+                can suggest it on our platform. We're always excited to expand
+                our collection. For contact details, view the bottom of this
+                page.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq">
+            <div class="question">
+              <h2 class="faq-h2">
+                5. Is AniSync affiliated with MyAnimeList or Osu!?
+              </h2>
+              <svg width="15" height="10" viewBox="0 0 42 25">
+                <path
+                  d="M3 3L21 21L39 3"
+                  stroke="white"
+                  stroke-width="7"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <div class="answer">
+              <p>
+                No, AniSync is an independent project created by an anime and
+                Osu! enthusiast. We're not officially affiliated with
+                MyAnimeList or Osu!, but we're excited to bring their worlds
+                together in a unique way.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq">
+            <div class="question">
+              <h2 class="faq-h2">6. Is this website safe?</h2>
+              <svg width="15" height="10" viewBox="0 0 42 25">
+                <path
+                  d="M3 3L21 21L39 3"
+                  stroke="white"
+                  stroke-width="7"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <div class="answer">
+              <p>
+                This project is completely safe and free from malware or
+                tracking of any sort. We are open source and you can view all of
+                the code by clicking on the github link at the top of this page.
+                The only thing we hide is our database of anime as it takes a
+                lot of time to create that and we would perfer to keep it
+                private for the time being.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq">
+            <div class="question">
+              <h2 class="faq-h2">7. How can I support this project?</h2>
+              <svg width="15" height="10" viewBox="0 0 42 25">
+                <path
+                  d="M3 3L21 21L39 3"
+                  stroke="white"
+                  stroke-width="7"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <div class="answer">
+              <p>
+                Just use it, we just want people to have a good time playing the
+                game that they like, and using our platform lets us know we are
+                doing a good job. If you want to go above and beyond, you can
+                star the repository on github and share it with some of your
+                friends who also watch anime and love Osu! like us.
+              </p>
+            </div>
           </div>
         </div>
-
-        <div class="faq">
-          <div class="question">
-            <h2>2. Is there a cost to use AniSync?</h2>
-            <svg width="15" height="10" viewBox="0 0 42 25">
-              <path
-                d="M3 3L21 21L39 3"
-                stroke="white"
-                stroke-width="7"
-                stroke-linecap="round"
-              />
-            </svg>
-          </div>
-          <div class="answer">
-            <p>
-              No, we want to give you the best experiance possible and as of
-              right now, we believe keeping this service free is the best
-              scenario for everyone
-            </p>
-          </div>
-        </div>
-
-        <div class="faq">
-          <div class="question">
-            <h2>3. Some shows say unavaliable, why is that?</h2>
-            <svg width="15" height="10" viewBox="0 0 42 25">
-              <path
-                d="M3 3L21 21L39 3"
-                stroke="white"
-                stroke-width="7"
-                stroke-linecap="round"
-              />
-            </svg>
-          </div>
-          <div class="answer">
-            <p>
-              There are plently of reasons as to why this may show up, as of
-              right now, we do not support most OVA's, Movies, or Specials at
-              this time unless they are widely popular and have a large fanbase.
-              Another possibility is that we could not find a suitable map for
-              the anime in our search. If you would like to suggest a map,
-              please contact me and we will review it (contact details at the
-              bottom of the page).
-            </p>
-          </div>
-        </div>
-
-        <div class="faq">
-          <div class="question">
-            <h2>4. Can I suggest beatmaps?</h2>
-            <svg width="15" height="10" viewBox="0 0 42 25">
-              <path
-                d="M3 3L21 21L39 3"
-                stroke="white"
-                stroke-width="7"
-                stroke-linecap="round"
-              />
-            </svg>
-          </div>
-          <div class="answer">
-            <p>
-              Absolutely! We encourage community engagement. If you come across
-              an osu! beatmap that perfectly complements an anime, you can
-              suggest it on our platform. We're always excited to expand our
-              collection. For contact details, view the bottom of this page.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq">
-          <div class="question">
-            <h2>5. Is AniSync affiliated with MyAnimeList or Osu!?</h2>
-            <svg width="15" height="10" viewBox="0 0 42 25">
-              <path
-                d="M3 3L21 21L39 3"
-                stroke="white"
-                stroke-width="7"
-                stroke-linecap="round"
-              />
-            </svg>
-          </div>
-          <div class="answer">
-            <p>
-              No, AniSync is an independent project created by an anime and Osu!
-              enthusiast. We're not officially affiliated with MyAnimeList or
-              Osu!, but we're excited to bring their worlds together in a unique
-              way.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq">
-          <div class="question">
-            <h2>6. Is this website safe?</h2>
-            <svg width="15" height="10" viewBox="0 0 42 25">
-              <path
-                d="M3 3L21 21L39 3"
-                stroke="white"
-                stroke-width="7"
-                stroke-linecap="round"
-              />
-            </svg>
-          </div>
-          <div class="answer">
-            <p>
-              This project is completely safe and free from malware or tracking
-              of any sort. We are open source and you can view all of the code
-              by clicking on the github link at the top of this page. The only
-              thing we hide is our database of anime as it takes a lot of time
-              to create that and we would perfer to keep it private for the time
-              being.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq">
-          <div class="question">
-            <h2>7. How can I support this project?</h2>
-            <svg width="15" height="10" viewBox="0 0 42 25">
-              <path
-                d="M3 3L21 21L39 3"
-                stroke="white"
-                stroke-width="7"
-                stroke-linecap="round"
-              />
-            </svg>
-          </div>
-          <div class="answer">
-            <p>
-              Just use it, we just want people to have a good time playing the
-              game that they like, and using our platform lets us know we are
-              doing a good job. If you want to go above and beyond, you can star
-              the repository on github and share it with some of your friends
-              who also watch anime and love Osu! like us.
-            </p>
-          </div>
+        <div>
+          <h1 class="main-h1">Contact</h1>
+          <p>
+            Currently, the fastest way to contact us is through my discord, send
+            a message to me at r.aj_23 and I will get back to you as soon as
+            possible. Thank you for using AniSync!
+          </p>
         </div>
       </div>
     </div>

@@ -17,17 +17,16 @@ body {
   min-height: 100vh;
   z-index: -10;
   background: var(--primary);
-  overflow-x:hidden; 
+  overflow-x: hidden;
 }
 
-h1 {
-  padding-top: 20px;
+.main-h1 {
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 50px;
   margin-top: 7rem;
 }
-h2 {
+.faq-h2 {
   display: flex;
   flex-direction: column;
   padding-top: 20px;
@@ -43,13 +42,13 @@ p {
   font-family: Arial, Helvetica, sans-serif;
   flex-direction: column; /* Stack elements vertically */
   line-height: 1.5;
-  color: #cfcfcf; 
-  margin-bottom: 40px; 
-  margin: 0 auto; 
+  color: #cfcfcf;
+  margin-bottom: 40px;
+  margin: 0 auto;
   max-width: 1000px;
 
-  margin-bottom: 20px; 
-  padding-top:1rem;
+  margin-bottom: 20px;
+  padding-top: 1rem;
   line-height: 1.6;
   font-size: 1.4rem;
 }
@@ -71,6 +70,15 @@ header {
   justify-content: space-between; /* Align items to start and end of the container */
   align-items: center; /* Vertically center the items */
   margin-right: 60px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 7rem;
 }
 
 
@@ -101,7 +109,6 @@ header {
   height: 35px;
 }
 
-
 .main-nav {
   padding: 0 30px 0 0px;
   display: flex;
@@ -128,41 +135,41 @@ header {
   --dark: #686868;
 }
 
-
 .faq {
-    max-width: 1000px;
-    margin-top: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid #fff;
-    cursor: pointer;
+  max-width: 1000px;
+  margin-top: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #fff;
+  cursor: pointer;
 }
 
 .question {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .question h2 {
-    font-size: 1.8rem;
+  font-size: 1.8rem;
 }
 
 .answer {
-    max-height: 0;
-    overflow: hidden;
+  max-height: 0;
+  overflow: hidden;
 }
 
 .answer p {
-    padding-top:1rem;
-    line-height: 1.6;
-    font-size: 1.4rem;
+  padding-top: 1rem;
+  line-height: 1.6;
+  font-size: 1.4rem;
 }
 
 .faq.active .answer {
-    max-height: 100%;
-    padding: 1rem;
+  max-height: 100%;
+  padding: 1rem;
 }
 
-.faq.active svg{
-    transform: rotate(180deg);
+.faq.active svg {
+  transform: rotate(180deg);
 }
+
