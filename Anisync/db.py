@@ -1,11 +1,11 @@
 import sqlite3
-from data_processing import convertor
 import time
 from mal import AnimeSearch
+from data_processing import convertor
 
 
 def main():
-    
+    add_user_to_db("Kyoko_52", 0, 300)
     pass
 
 def add_user_to_db(user: str, start: int, end: int):

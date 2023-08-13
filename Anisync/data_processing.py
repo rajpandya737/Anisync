@@ -1,6 +1,6 @@
-import re
 from mal import Anime, AnimeSearch
 import bs4
+import re
 import requests
 import sqlite3
 
@@ -73,8 +73,7 @@ def scrape_osu(link: str):
     # Returns the artist and title of the song from the osu beatmap link
     try:
         response = requests.get(link)
-        response.raise_for_status()  # Raise an exception for HTTP errors
-
+        response.raise_for_status()
         soup = bs4.BeautifulSoup(response.text, "html.parser")
         title_tag = soup.find("title")
 
@@ -103,15 +102,15 @@ def convertor(user: str, s: int, e: int) -> list:
     c = conn.cursor()
     searched = 0
     anime_list = decode_unicode(remove_blank_entries(mal(user)[s:e]))
-    # print(anime_list)
+    #print(anime_list)
     list_info = []
     for anime in anime_list:
         c.execute("SELECT 1 FROM anime WHERE anime_name = ? LIMIT 1", (anime,))
         result = c.fetchone()
-        # print(anime)
+        print(anime)
         if not result and searched < 5:
             searched += 1
-            # print("Not in database")
+            print("Not in database")
             img, anime_type = get_anime_type(anime)
             song = [None]
             if anime_type == "TV":
