@@ -3,20 +3,21 @@ import time
 from mal import AnimeSearch
 from data_processing import convertor
 
-
+ 
 def main():
-    add_user_to_db("Kyoko_52", 0, 300)
+    #add_user_to_db("Stark700", 0)
+    update_anime_names_unicode(0, 1490)
     pass
 
-def add_user_to_db(user: str, start: int, end: int):
-    for i in range(5):
-        start+= 20*i
-        end += 20*i
+def add_user_to_db(user: str, start: int):
+    for i in range(6):
+        end = start + 20
         print(start, end, "start")
         anime_list = convertor(user, start, end)
         add_anime_by_list(anime_list)
         time.sleep(30)
         print(start, end, "end")
+        start = end
 
 def convert_unicode_to_string(unicode_str: str) -> str:
     converted_chars = []
@@ -28,20 +29,22 @@ def convert_unicode_to_string(unicode_str: str) -> str:
     return "".join(converted_chars)
 
 
+
 def update_anime_names_unicode(start: int, end: int):
-
-    c.execute("SELECT anime_name FROM anime")
+    c.execute("SELECT * FROM anime")
     rows = c.fetchall()
-
     for row in rows[start:end]:
-        old_name = row[0]
+        old_name, anime_song, anime_img, osu_link = row[0], row[1], row[2], row[3]
         new_name = convert_unicode_to_string(old_name)
-        print(new_name) if new_name != old_name else print("", end="")
-        c.execute(
-            "UPDATE anime SET anime_name = ? WHERE anime_name = ?", (new_name, old_name)
-        )
-        conn.commit()
-
+        c.execute("SELECT COUNT(*) FROM anime WHERE anime_name = ?", (new_name,))
+        count = c.fetchone()[0]
+        if new_name != old_name and count == 0:
+            print(new_name)
+            c.execute(
+                "INSERT INTO anime (anime_name, anime_song, anime_img, osu_link) VALUES (?, ?, ?, ?)",
+                (new_name, anime_song, anime_img, osu_link,)
+            )
+            conn.commit()
 
 def set_song_to_none():
     update_query = """
