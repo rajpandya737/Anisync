@@ -1,27 +1,18 @@
 from flask import Flask, request, render_template, redirect, url_for, session
-from flask_sqlalchemy import SQLAlchemy
 import dotenv
 import os
 from data_processing import convertor
-
-
 
 dotenv_path = os.path.join(os.path.dirname(__file__), "instance", ".env")
 dotenv.load_dotenv(dotenv_path)
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/translated_anime_list.sqlite'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
 
-def load_database():    
-    from models import Anime
-    data = Anime.query.all()
-    return data
+
+
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-    
     if request.method == "POST":
         user = request.form["user"]
         session["user"] = user

@@ -6,7 +6,8 @@ from data_processing import convertor
  
 def main():
     #add_user_to_db("Stark700", 0)
-    update_anime_names_unicode(0, 1490)
+    #update_anime_names_unicode(0, 1490)
+    set_song_to_none()
     pass
 
 def add_user_to_db(user: str, start: int):
