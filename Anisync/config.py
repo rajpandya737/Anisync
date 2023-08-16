@@ -1,0 +1,5 @@
+HOST = "0.0.0.0"
+PORT = 8000
+DEBUG = False
+START = 0
+END = 300
