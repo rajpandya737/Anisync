@@ -10,7 +10,7 @@ dotenv.load_dotenv(dotenv_path)
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
 
-print("running")
+print("running1")
 @app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
@@ -53,4 +53,3 @@ def user():
 
 if __name__ == "__main__":
     app.run(host=HOST, port=PORT, debug=DEBUG)
-

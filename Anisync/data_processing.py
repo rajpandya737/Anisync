@@ -3,7 +3,7 @@ import bs4
 import re
 import requests
 import sqlite3
-
+from config import DB_PATH
 
 ERROR_IMG_URL = "https://cdn.myanimelist.net/images/anime/1792/91081.jpg"
 
@@ -98,7 +98,7 @@ convert_to_string = lambda input_string: input_string.encode().decode("unicode_e
 def convertor(user: str, s: int, e: int) -> list:
     # Converts the anime list from MAL to a list of lists containing the anime name, song, image, and osu link
 
-    conn = sqlite3.connect("database/translated_anime_list.sqlite")
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     searched = 0
     try:
@@ -106,7 +106,6 @@ def convertor(user: str, s: int, e: int) -> list:
     except Exception as e:
         print(e)
         anime_list = []
-    #print(anime_list)
     list_info = []
     for anime in anime_list:
         c.execute("SELECT 1 FROM anime WHERE anime_name = ? LIMIT 1", (anime,))

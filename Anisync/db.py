@@ -2,11 +2,13 @@ import sqlite3
 import time
 from mal import AnimeSearch
 from data_processing import convertor
+from config import DB_PATH
 
  
+conn = sqlite3.connect(DB_PATH)
+c = conn.cursor()
+
 def main():
-    #add_user_to_db("Stark700", 0)
-    #update_anime_names_unicode(0, 1490)
     set_song_to_none()
     pass
 
@@ -56,8 +58,6 @@ def set_song_to_none():
     c.execute(update_query)
 
 
-conn = sqlite3.connect("database/translated_anime_list.sqlite")
-c = conn.cursor()
 
 
 def no_map(anime_name: str, anime_song: str, anime_img: str):
