@@ -4,6 +4,7 @@ import os.path
 HOST = "0.0.0.0"
 PORT = 8000
 DEBUG = False
+ENV = "production"
 
 # Anime list config
 START = 0

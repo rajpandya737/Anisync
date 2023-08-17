@@ -110,10 +110,8 @@ def convertor(user: str, s: int, e: int) -> list:
     for anime in anime_list:
         c.execute("SELECT 1 FROM anime WHERE anime_name = ? LIMIT 1", (anime,))
         result = c.fetchone()
-        #print(anime)
         if not result and searched < 2:
             searched += 1
-            #print("Not in database")
             img, anime_type = get_anime_type(anime)
             song = [None]
             if anime_type == "TV":
