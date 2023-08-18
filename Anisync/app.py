@@ -4,13 +4,15 @@ import os
 from data_processing import convertor
 from config import HOST, PORT, DEBUG, ENV, START, END
 
-
+# Load environment variables
 dotenv_path = os.path.join(os.path.dirname(__file__), "instance", ".env")
 dotenv.load_dotenv(dotenv_path)
+
+# Initialize Flask app
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
 
-print("running1")
+# Home and Search page routes
 @app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
@@ -29,11 +31,13 @@ def search():
     return render_template("search.html")
 
 
+# About page route
 @app.route("/about")
 def about():
     return render_template("about.html")
 
 
+# View maps page route, redirect if session is not set
 @app.route(
     "/view-maps", methods=["GET", "POST"]
 )  # Include the 'username' parameter in the route

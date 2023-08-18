@@ -1,3 +1,6 @@
+# This file contains all the functions that interact with the database, 
+# is not used in the actual program, but mainly used to add additional anime to the database
+
 import sqlite3
 import time
 from mal import AnimeSearch

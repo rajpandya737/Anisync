@@ -97,10 +97,11 @@ convert_to_string = lambda input_string: input_string.encode().decode("unicode_e
 
 def convertor(user: str, s: int, e: int) -> list:
     # Converts the anime list from MAL to a list of lists containing the anime name, song, image, and osu link
-
+    # Initialise Database connection
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     searched = 0
+    # Get the user anime list
     try:
         anime_list = decode_unicode(remove_blank_entries(mal(user)[s:e]))
     except Exception as e:
@@ -108,15 +109,20 @@ def convertor(user: str, s: int, e: int) -> list:
         anime_list = []
     list_info = []
     for anime in anime_list:
+        # Check if anime is already in the database
         c.execute("SELECT 1 FROM anime WHERE anime_name = ? LIMIT 1", (anime,))
         result = c.fetchone()
         if not result and searched < 2:
+            # If not in database get the anime type and image
             searched += 1
             img, anime_type = get_anime_type(anime)
             song = [None]
+            # Filter any anime that arent TV
             if anime_type == "TV":
+                # If they are TV, search on google for osu beatmaps related to them
                 google_search_term = f"{anime} Osu Beatmap Anime"
                 link = get_google_results(google_search_term)
+                # Make sure they are osu beatmaps and not discussions or other links
                 if (link is not None) and (
                     (
                         not link.startswith(
@@ -141,6 +147,7 @@ def convertor(user: str, s: int, e: int) -> list:
             anime = convert_to_string(anime)
             list_info.append([anime, song, img, link])
         else:
+            # If anime is in database, get all its information and append to the list
             select_query = """
             SELECT * FROM anime
             WHERE anime_name = ?;
