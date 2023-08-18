@@ -172,5 +172,4 @@ sketch
 
 # Ignore all .env files in any subdirectory
 **/.env
-**/*.sqlite
 Anisync/database
