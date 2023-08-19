@@ -1,7 +1,7 @@
 from mal import Anime, AnimeSearch
 import bs4
-import re
 import requests
+import re
 import sqlite3
 from config import DB_PATH
 

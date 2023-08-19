@@ -7,10 +7,11 @@ from config import HOST, PORT, DEBUG, ENV, START, END
 # Load environment variables
 dotenv_path = os.path.join(os.path.dirname(__file__), "instance", ".env")
 dotenv.load_dotenv(dotenv_path)
-
-# Initialize Flask app
+SECRET_KEY = os.getenv("SECRET_KEY")
+if SECRET_KEY is None:
+    SECRET_KEY = "Local Host Secret Key"
 app = Flask(__name__)
-app.secret_key = os.getenv("SECRET_KEY")
+app.secret_key = SECRET_KEY
 
 # Home and Search page routes
 @app.route("/", methods=["GET", "POST"])
