@@ -6,7 +6,7 @@ Anisync is a web application that takes a MyAnimeList (MAL) username as input an
 
 ## How to run the program
 
-Currently, a website for this program is in development with the latest version is avaliable at: http://146.190.252.102:8000/.
+Currently, a website for this program is in development.
 
  The program can also be run locally by following these steps. Please ensure you have pip installed on your machine. If you do not, please follow the instructions [here](https://pip.pypa.io/en/stable/installing/).
 
