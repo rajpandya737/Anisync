@@ -2,7 +2,7 @@ import os.path
 
 # Flask config
 HOST = "0.0.0.0"
-PORT = 80
+PORT = 8000
 DEBUG = False
 ENV = "production"
 
