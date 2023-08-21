@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <head>
-    
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0X9V0SRC1X"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-0X9V0SRC1X"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-  gtag('config', 'G-0X9V0SRC1X');
-</script>
-
+      gtag("config", "G-0X9V0SRC1X");
+    </script>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,8 +22,6 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/about.css') }}"
     />
-    <!-- Temporary live server viewing -->
-    <link rel="stylesheet" href="../static/css/about.css" />
     <meta
       name="description"
       content="Find Osu! Beatmaps from your MyAnimeList profile with just one click of a button"
@@ -229,10 +229,10 @@
             </div>
             <div class="answer">
               <p>
-                This project is completely safe and free from malware or
-                tracking of any sort. We are fully open source and you can view
-                all of the code by clicking on the github link at the top of
-                this page.
+                This project is completely safe. We do have Google Analytics
+                running in the background, but that is to just mointor the scale
+                of the website. We are fully open source and you can view all of
+                the code by clicking on the github link at the top of this page.
               </p>
             </div>
           </div>
@@ -264,7 +264,7 @@
             Currently, the fastest way to contact us is through my discord, send
             a message to me at r.aj_23 and I will get back to you as soon as
             possible. We also have a twitter page, check it out at @rajdev737.
-            Thank you for using Anisync! 
+            Thank you for using Anisync!
           </p>
         </div>
         <div>

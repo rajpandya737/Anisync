@@ -1,6 +1,5 @@
 import os.path
 
-
 # Flask config
 HOST = "0.0.0.0"
 PORT = 8000
@@ -10,7 +9,7 @@ ENV = "production"
 # Anime list config
 START = 0
 END = 300
-TEST_MODE = True
+TEST_MODE = False
 
 # Database config
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

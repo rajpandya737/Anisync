@@ -5,7 +5,7 @@ import re
 import sqlite3
 from config import DB_PATH, TEST_MODE
 
-ERROR_IMG_URL = "https://cdn.myanimelist.net/images/anime/1792/91081.jpg"
+ERROR_IMG_URL = "https://developers.google.com/static/maps/documentation/streetview/images/error-image-generic.png"
 
 
 def mal(user: str) -> list:
@@ -109,12 +109,11 @@ def convertor(user: str, start: int, end: int) -> list:
         anime_list = []
     list_info = []
     for anime in anime_list:
-        print(anime)
+        #print(anime)
         # Check if anime is already in the database
         c.execute("SELECT 1 FROM anime WHERE anime_name = ? LIMIT 1", (anime,))
         result = c.fetchone()
         if not result and (TEST_MODE is True or searched < 2):
-
             # If not in database get the anime type and image
             searched += 1
             img, anime_type = get_anime_type(anime)
