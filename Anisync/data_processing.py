@@ -3,7 +3,7 @@ import bs4
 import requests
 import re
 import sqlite3
-from config import DB_PATH
+from config import DB_PATH, TEST_MODE
 
 ERROR_IMG_URL = "https://cdn.myanimelist.net/images/anime/1792/91081.jpg"
 
@@ -95,7 +95,7 @@ decode_unicode = lambda lst: [
 convert_to_string = lambda input_string: input_string.encode().decode("unicode_escape")
 
 
-def convertor(user: str, s: int, e: int) -> list:
+def convertor(user: str, start: int, end: int) -> list:
     # Converts the anime list from MAL to a list of lists containing the anime name, song, image, and osu link
     # Initialise Database connection
     conn = sqlite3.connect(DB_PATH)
@@ -103,16 +103,18 @@ def convertor(user: str, s: int, e: int) -> list:
     searched = 0
     # Get the user anime list
     try:
-        anime_list = decode_unicode(remove_blank_entries(mal(user)[s:e]))
+        anime_list = decode_unicode(remove_blank_entries(mal(user)[start:end]))
     except Exception as e:
         print(e)
         anime_list = []
     list_info = []
     for anime in anime_list:
+        print(anime)
         # Check if anime is already in the database
         c.execute("SELECT 1 FROM anime WHERE anime_name = ? LIMIT 1", (anime,))
         result = c.fetchone()
-        if not result and searched < 2:
+        if not result and (TEST_MODE is True or searched < 2):
+
             # If not in database get the anime type and image
             searched += 1
             img, anime_type = get_anime_type(anime)
@@ -121,24 +123,23 @@ def convertor(user: str, s: int, e: int) -> list:
             if anime_type == "TV":
                 # If they are TV, search on google for osu beatmaps related to them
                 google_search_term = f"{anime} Osu Beatmap Anime"
-                link = get_google_results(google_search_term)
+                link = str(get_google_results(google_search_term))
                 # Make sure they are osu beatmaps and not discussions or other links
-                if (link is not None) and (
-                    (
-                        not link.startswith(
-                            "https://www.google.com/url?q=https://osu.ppy.sh/beatmapsets/"
-                        )
-                    )
-                    or "discussion" in link
-                ):
-                    link = None
-                elif link is not None:
-                    song = scrape_osu(link)
-                else:
+                if link is None:
                     song = "No song found"
                     link = "Does not exist"
+                elif (
+                    link.startswith(
+                        "https://www.google.com/url?q=https://osu.ppy.sh/beatmapsets/"
+                    )
+                    and "discussion" not in link
+                ):
+                    song = scrape_osu(link)
+                else:
+                    link = f"No song found"
+                    song = "No song found"
             else:
-                link = f"Not Supported Yet"
+                link = f"Does not exist"
                 song = "No song found"
 
             if song[0] is None or song[0] == "None":

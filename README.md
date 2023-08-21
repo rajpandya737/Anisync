@@ -45,10 +45,17 @@ If you are running it locally, make your way to http://localhost:8000 and follow
 - **MyAnimeList API**: Currently used to get the anime image. [Github and Documentation](https://github.com/darenliang/mal-api)
 - **Osu! API**: While I do not use this in the current state of the project, I initially did to aid in prototyping. [Github and Documentation](https://github.com/circleguard/ossapi)
 - **MAL Accounts Used for Testing and Data Gathering**:
-  - [raj_23 (Personal Profile)](https://myanimelist.net/profile/raj_23)
-  - [04Ace](https://myanimelist.net/profile/04Ace)
-  - [MayilArna](https://myanimelist.net/profile/MayilArna)
-  - [Kyoko_52](https://myanimelist.net/profile/Kyoko_52)
+  - Personal Account:
+    - [raj_23](https://myanimelist.net/profile/raj_23)
+  - Friend Accounts:
+    - [04Ace](https://myanimelist.net/profile/04Ace)
+    - [MayilArna](https://myanimelist.net/profile/MayilArna)
+    - [Kyoko_52](https://myanimelist.net/profile/Kyoko_52)
+    - [cantstudy](https://myanimelist.net/profile/cantstudy)
+  - Additional Accounts:
+    - [KingAbsalon21](https://myanimelist.net/profile/KingAbsalon21)
+    - [ashuulinksu](https://myanimelist.net/profile/ashuulinksu)
+
 
 ## License
 This project is licensed under the [GNU Affero General Public License v3.0](LICENSE).

@@ -12,7 +12,9 @@ conn = sqlite3.connect(DB_PATH)
 c = conn.cursor()
 
 def main():
-    set_song_to_none()
+    add_user_to_db("literaturenerd", 120)
+    #set_song_to_none()
+    #update_anime_names_unicode(0, 1670)
     pass
 
 def add_user_to_db(user: str, start: int):
