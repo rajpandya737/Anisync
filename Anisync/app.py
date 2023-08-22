@@ -1,17 +1,17 @@
 from flask import Flask, request, render_template, redirect, url_for, session
-import dotenv
-import os
+import logging
 from data_processing import convertor
-from config import HOST, PORT, DEBUG, ENV, START, END
+from config import HOST, PORT, DEBUG, START, END, SECRET_KEY, SESSION_LIFETIME
 
-# Load environment variables
-dotenv_path = os.path.join(os.path.dirname(__file__), "instance", ".env")
-dotenv.load_dotenv(dotenv_path)
-SECRET_KEY = os.getenv("SECRET_KEY")
-if SECRET_KEY is None:
-    SECRET_KEY = "Local Host Secret Key"
+
 app = Flask(__name__)
-app.secret_key = SECRET_KEY
+app.config['SECRET_KEY'] = SECRET_KEY
+app.config['PERMANENT_SESSION_LIFETIME'] = SESSION_LIFETIME
+
+logging.basicConfig(level=logging.DEBUG)  
+app.logger.setLevel(logging.DEBUG)
+
+
 
 # Home and Search page routes
 @app.route("/", methods=["GET", "POST"])
@@ -51,9 +51,18 @@ def user():
     if "user" in session:
         user = session["user"]
         anime = convertor(user, START, END)
-        print(user)
+        app.logger.debug(user)
         return render_template("list.html", anime_info=anime, user=user)
     return redirect(url_for("search"))
+
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('error.html', error_code=404, error_description='Page not found'), 404
+
+@app.errorhandler(Exception)
+def global_error_handler(error):
+    return render_template('error.html', error_code=500, error_description='Internal Server Error'), 500
 
 
 if __name__ == "__main__":

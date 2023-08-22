@@ -15,7 +15,11 @@
 
       gtag("config", "G-0X9V0SRC1X");
     </script>
-
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='images/favicon.ico') }}"
+      type="image/x-icon"
+    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
@@ -33,12 +37,21 @@
   <body>
     <header id="main-header">
       <div class="siteLogo">
-        <a id="logo"
-          ><img
-            src="{{ url_for('static', filename='images/aniosulogo.png') }}"
+        <a href="{{ url_for('search') }}">
+          <img
+            src="{{ url_for('static', filename='images/aniosulogo.webp') }}"
             alt="Website Logo"
-        /></a>
+          />
+        </a>
+        <a href="{{ url_for('search') }}">
+          <img
+            class="imgText"
+            src="{{ url_for('static', filename='images/aniosutext.webp') }}"
+            alt="Anisync"
+          />
+        </a>
       </div>
+      
 
       <nav class="main-nav">
         <a
@@ -87,7 +100,7 @@
           </button>
         </form>
       </div>
-      <p class="example">For example: raj_23</p>
+      <p class="example">For example: NuxTaku</p>
     </div>
     <div class="secondary-wrapper"></div>
   </body>
