@@ -1,4 +1,5 @@
-from flask import Flask, request, render_template, redirect, url_for, session
+from flask import Flask, request, render_template, redirect, url_for, session, make_response
+import xml.etree.ElementTree as ET
 import logging
 from data_processing import convertor
 from config import HOST, PORT, DEBUG, START, END, SECRET_KEY, SESSION_LIFETIME
@@ -64,6 +65,24 @@ def not_found_error(error):
 def global_error_handler(error):
     return render_template('error.html', error_code=500, error_description='Internal Server Error'), 500
 
+@app.route('/sitemap.xml')
+def sitemap():
+    base_url = "https://anisync.live"
+
+    root = ET.Element("urlset")
+    root.set("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9")
+
+    urls = ["/", "/search", "/about"]  
+    for url in urls:
+        loc = ET.SubElement(root, "url")
+        ET.SubElement(loc, "loc").text = base_url + url
+
+    tree = ET.ElementTree(root)
+    xml_string = ET.tostring(root, encoding="utf-8")
+    response = make_response(xml_string)
+    response.headers["Content-Type"] = "application/xml"
+
+    return response
 
 if __name__ == "__main__":
     app.run(host=HOST, port=PORT, debug=DEBUG)

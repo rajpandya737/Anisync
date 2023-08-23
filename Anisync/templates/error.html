@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+  <head>
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='images/favicon.ico') }}"
+      type="image/x-icon"
+    />
     <title>Error</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Error {{ error_code }}</h1>
     <p>{{ error_description }}</p>
-</body>
+    <p>Oi Oi, have you seen Luffy?</p>
+    <img src="{{ url_for('static', filename='images/zoro.png') }}" alt="Zoro, how did you get here?">
+  </body>
 </html>

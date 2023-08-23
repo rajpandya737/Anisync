@@ -1,4 +1,4 @@
-# Anisync - Convert your MAL to Osu beatmaps!
+# Anisync - Convert your MAL to Osu maps!
 
 ## Description
 
@@ -53,8 +53,10 @@ If you are running it locally, make your way to http://localhost:8000 and follow
     - [Kyoko_52](https://myanimelist.net/profile/Kyoko_52)
     - [cantstudy](https://myanimelist.net/profile/cantstudy)
   - Additional Accounts:
+    - [NuxTaku](https://myanimelist.net/profile/NuxTaku)
     - [KingAbsalon21](https://myanimelist.net/profile/KingAbsalon21)
     - [ashuulinksu](https://myanimelist.net/profile/ashuulinksu)
+-**Netflix**: Much of the UI is inspired by Netflix's UI. [Netflix](https://www.netflix.com/)
 
 
 ## License
