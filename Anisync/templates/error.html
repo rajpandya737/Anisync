@@ -7,11 +7,43 @@
       type="image/x-icon"
     />
     <title>Error</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/error.css') }}">
   </head>
+  <header id="main-header">
+    <div class="siteLogo">
+      <a href="{{ url_for('search') }}">
+        <img
+          src="{{ url_for('static', filename='images/zorohead.webp') }}"
+          alt="Website Logo"
+        />
+      </a>
+      <a href="{{ url_for('search') }}">
+        <img
+          class="imgText"
+          src="{{ url_for('static', filename='images/aniosutext.webp') }}"
+          alt="Anisync"
+        />
+      </a>
+    </div>
+
+    <nav class="main-nav">
+      <a
+        class="github-link"
+        target="_blank"
+        href="https://github.com/RajPandya737/MAL-to-Osu-Beatmaps"
+        >Github</a
+      >
+      <a class="about-link" target="_self" href="{{ url_for('search') }}"
+        >Search</a
+      >
+    </nav>
+  </header>
   <body>
+    <div class="wrapper">
     <h1>Error {{ error_code }}</h1>
     <p>{{ error_description }}</p>
-    <p>Oi Oi, have you seen Luffy?</p>
-    <img src="{{ url_for('static', filename='images/zoro.png') }}" alt="Zoro, how did you get here?">
+  </div>
+    <!-- <img class="zoro"src="{{ url_for('static', filename='images/zoro.png') }}" alt="Zoro, how did you get here?"> -->
+    <img class="zoro" src="../static/images/zoro.webp" alt="Zoro, how did you get here?">
   </body>
 </html>

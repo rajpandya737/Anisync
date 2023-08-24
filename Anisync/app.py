@@ -1,4 +1,12 @@
-from flask import Flask, request, render_template, redirect, url_for, session, make_response
+from flask import (
+    Flask,
+    request,
+    render_template,
+    redirect,
+    url_for,
+    session,
+    make_response,
+)
 import xml.etree.ElementTree as ET
 import logging
 from data_processing import convertor
@@ -6,12 +14,11 @@ from config import HOST, PORT, DEBUG, START, END, SECRET_KEY, SESSION_LIFETIME
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = SECRET_KEY
-app.config['PERMANENT_SESSION_LIFETIME'] = SESSION_LIFETIME
+app.config["SECRET_KEY"] = SECRET_KEY
+app.config["PERMANENT_SESSION_LIFETIME"] = SESSION_LIFETIME
 
-logging.basicConfig(level=logging.DEBUG)  
+logging.basicConfig(level=logging.DEBUG)
 app.logger.setLevel(logging.DEBUG)
-
 
 
 # Home and Search page routes
@@ -59,20 +66,34 @@ def user():
 
 @app.errorhandler(404)
 def not_found_error(error):
-    return render_template('error.html', error_code=404, error_description='Page not found'), 404
+    return (
+        render_template(
+            "error.html",
+            error_code=404,
+            error_description="Page not found",
+        ),
+        404,
+    )
+
 
 @app.errorhandler(Exception)
 def global_error_handler(error):
-    return render_template('error.html', error_code=500, error_description='Internal Server Error'), 500
+    return (
+        render_template(
+            "error.html", error_code=500, error_description="Something went wrong"
+        ),
+        500,
+    )
 
-@app.route('/sitemap.xml')
+
+@app.route("/sitemap.xml")
 def sitemap():
     base_url = "https://anisync.live"
 
     root = ET.Element("urlset")
     root.set("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9")
 
-    urls = ["/", "/search", "/about"]  
+    urls = ["/", "/search", "/about"]
     for url in urls:
         loc = ET.SubElement(root, "url")
         ET.SubElement(loc, "loc").text = base_url + url
@@ -83,6 +104,7 @@ def sitemap():
     response.headers["Content-Type"] = "application/xml"
 
     return response
+
 
 if __name__ == "__main__":
     app.run(host=HOST, port=PORT, debug=DEBUG)
