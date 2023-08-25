@@ -12,9 +12,11 @@ conn = sqlite3.connect(DB_PATH)
 c = conn.cursor()
 
 def main():
-    add_user_to_db("literaturenerd", 120)
+    #delete_rows_by_id(1807, 1843)
+    add_user_to_db("Joshhhp", 120)
+    #nyes593
     #set_song_to_none()
-    #update_anime_names_unicode(0, 1670)
+    #update_anime_names_unicode(1740, 1802)
     pass
 
 def add_user_to_db(user: str, start: int):
@@ -23,7 +25,7 @@ def add_user_to_db(user: str, start: int):
         print(start, end, "start")
         anime_list = convertor(user, start, end)
         add_anime_by_list(anime_list)
-        time.sleep(30)
+        time.sleep(10)
         print(start, end, "end")
         start = end
 
@@ -57,8 +59,8 @@ def update_anime_names_unicode(start: int, end: int):
 def set_song_to_none():
     update_query = """
         UPDATE anime
-        SET anime_song = 'No song found'
-        WHERE osu_link = 'Does not exist';
+        SET osu_link = 'Does not exist'
+        WHERE osu_link = 'No song found';
     """
     c.execute(update_query)
 

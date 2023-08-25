@@ -109,7 +109,7 @@ def convertor(user: str, start: int, end: int) -> list:
         anime_list = []
     list_info = []
     for anime in anime_list:
-        #print(anime)
+        print(anime)
         # Check if anime is already in the database
         c.execute("SELECT 1 FROM anime WHERE anime_name = ? LIMIT 1", (anime,))
         result = c.fetchone()
@@ -170,6 +170,7 @@ def convertor(user: str, start: int, end: int) -> list:
                         [anime, "No song", ERROR_IMG_URL, "Does not exist"]
                     )
             except Exception as e:
+                print("error")
                 list_info.append([anime, "No song", ERROR_IMG_URL, "Does not exist"])
     conn.close()
     return list_info
