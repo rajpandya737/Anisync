@@ -40,6 +40,22 @@ On the website, simply type in your MAL username into the search bar and click s
 
 If you are running it locally, make your way to http://localhost:8000 and follow the same steps as above.
 
+## Project Structure
+The project consists of the following files inside of the Anisync Folder folder:
+
+1. `app.py`: The main Python script.
+2. `config.py`: Contains all constants used in the program.
+3. `data_processing.py`: Stores all data retrival functions.
+4. `db.py`: Runs any database related functions, used to add data to the database.
+5. `static/css`: Contains CSS for each of the respective HTML files. The CSS is minified.
+6. `static/images`: Contains all images used in the project.
+7. `static/js/about.js`: Gives FAQ button functionality on about route.
+8. `static/js/index.js`: Corrects anime name mistakes due to the data_processing.py script on view-maps route.
+9. `static/js/scroll.js`: Sticky header functionality on view-maps route.
+10. `templates`: Contains all HTML files used in the project.
+11. `translated_anime_list.sqlite`: SQLite3 database that stores all anime data.
+12. `wsgi.py`: Used for deployment on Digital Ocean.
+
 ## Credits
 
 - **MyAnimeList API**: Currently used to get the anime image. [Github and Documentation](https://github.com/darenliang/mal-api)
@@ -56,6 +72,7 @@ If you are running it locally, make your way to http://localhost:8000 and follow
     - [NuxTaku](https://myanimelist.net/profile/NuxTaku)
     - [KingAbsalon21](https://myanimelist.net/profile/KingAbsalon21)
     - [ashuulinksu](https://myanimelist.net/profile/ashuulinksu)
+    - [Joshhhp](https://myanimelist.net/profile/Joshhhp)
 - **Netflix**: Much of the UI is inspired by Netflix's login page. [Netflix Website](https://www.netflix.com/)
 
 

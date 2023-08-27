@@ -12,8 +12,8 @@ conn = sqlite3.connect(DB_PATH)
 c = conn.cursor()
 
 def main():
-    #delete_rows_by_id(1807, 1843)
-    add_user_to_db("Joshhhp", 120)
+    #delete_rows_by_id(1790, 1805)
+    add_user_to_db("Joshhhp", 240)
     #nyes593
     #set_song_to_none()
     #update_anime_names_unicode(1740, 1802)
@@ -25,8 +25,8 @@ def add_user_to_db(user: str, start: int):
         print(start, end, "start")
         anime_list = convertor(user, start, end)
         add_anime_by_list(anime_list)
-        time.sleep(10)
         print(start, end, "end")
+        time.sleep(20)
         start = end
 
 def convert_unicode_to_string(unicode_str: str) -> str:
