@@ -164,13 +164,8 @@ def convertor(user: str, start: int, end: int) -> list:
                     list_info.append(
                         [db_anime_name, db_anime_song, db_anime_img, db_osu_link]
                     )
-                else:
-                    anime = convert_to_string(anime)
-                    list_info.append(
-                        [anime, "No song", ERROR_IMG_URL, "Does not exist"]
-                    )
             except Exception as e:
                 print("error")
-                list_info.append([anime, "No song", ERROR_IMG_URL, "Does not exist"])
+                #list_info.append([anime, "No song", ERROR_IMG_URL, "Does not exist"])
     conn.close()
     return list_info
