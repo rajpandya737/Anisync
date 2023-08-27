@@ -73,6 +73,8 @@ The project consists of the following files inside of the Anisync Folder folder:
     - [KingAbsalon21](https://myanimelist.net/profile/KingAbsalon21)
     - [ashuulinksu](https://myanimelist.net/profile/ashuulinksu)
     - [Joshhhp](https://myanimelist.net/profile/Joshhhp)
+    - [sayu-simp](https://myanimelist.net/profile/sayu-simp)
+    - [Lakdinu](https://myanimelist.net/profile/Lakdinu)
 - **Netflix**: Much of the UI is inspired by Netflix's login page. [Netflix Website](https://www.netflix.com/)
 
 

@@ -3,7 +3,7 @@
 
 import sqlite3
 import time
-from mal import AnimeSearch
+from mal import Anime, AnimeSearch
 from data_processing import convertor
 from config import DB_PATH
 
@@ -13,10 +13,11 @@ c = conn.cursor()
 
 def main():
     #delete_rows_by_id(1790, 1805)
-    add_user_to_db("Joshhhp", 240)
+    #add_user_to_db("Lakdinu", 240)
     #nyes593
     #set_song_to_none()
-    #update_anime_names_unicode(1740, 1802)
+    #update_anime_names_unicode(0, 1930)
+    change_image()
     pass
 
 def add_user_to_db(user: str, start: int):
@@ -60,7 +61,7 @@ def set_song_to_none():
     update_query = """
         UPDATE anime
         SET osu_link = 'Does not exist'
-        WHERE osu_link = 'No song found';
+        WHERE osu_link = 'Not Supported Yet';
     """
     c.execute(update_query)
 
@@ -166,6 +167,24 @@ def get_japanese_names(english_names: str):
         japanese_names.append(japanese_name)
         print(japanese_name)
     return japanese_names
+
+def change_image():
+    query = "SELECT anime_name FROM anime WHERE anime_img = 'https://cdn.myanimelist.net/images/anime/1792/91081.jpg'"
+    c.execute(query)
+    anime_data = c.fetchall()
+    for i, anime in enumerate(anime_data):
+        if i % 10 == 0 and i != 0:
+            time.sleep(10)
+        time.sleep(1)
+        anime = anime[0]
+        MAL_id = AnimeSearch(anime).results[0].mal_id
+        anime_info = Anime(MAL_id)
+        img = anime_info.image_url
+        print(anime, img)
+        query = "UPDATE anime SET anime_img = ? WHERE anime_img = 'https://cdn.myanimelist.net/images/anime/1792/91081.jpg' AND anime_name = ?"
+        c.execute(query, (img, anime,))
+        conn.commit()
+
 
 
 main()

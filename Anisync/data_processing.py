@@ -113,7 +113,7 @@ def convertor(user: str, start: int, end: int) -> list:
         # Check if anime is already in the database
         c.execute("SELECT 1 FROM anime WHERE anime_name = ? LIMIT 1", (anime,))
         result = c.fetchone()
-        if not result and (TEST_MODE is True or searched < 2):
+        if not result and (TEST_MODE is True or searched < 0):
             # If not in database get the anime type and image
             searched += 1
             img, anime_type = get_anime_type(anime)
