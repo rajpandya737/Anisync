@@ -65,7 +65,7 @@ The project consists of the following files inside of the Anisync Folder folder:
 Assuming we have the MAL username, the first step of the program is to get the user's anime list from MAL. Unfortunetly I was not able to find any API's that do this seemlessly and so I decided to use webscrapping instead. The link to every users anime list sorted from highest score to lowest score is ALWAYS the same, just a different query in the URL. With this information, a simple username can retrieve data from, however there are limitations. MAL loads the list data dynamically and so webscrapping only retrieves the first 300 or so enteries leaving the rest to be unaccessable. This is why the program is limited to 300 beatmaps. 
 
 ### Storing Data
-Cleaning the data with regex, we can obtain a list of anime names they enjoy. Now, using an unofficial MAL API, we can retrieve the anime image URL which will be useful for displaing on the website. Calling this API takes around 2 seconds per anime and so it would not be efficient to rely on it alone. This is why I decided to use a SQLite3 database to store all the anime data. While an SQLite3 database may not be ideal for production, it is perfect for this project. SQLite3 databases are light weight and fast but have drawbacks when you reach hundreds of thousands of enteries. Luckily, this project will only store a few thousand enteries which a SQLite3 database can handle. 
+Cleaning the data with regex, we can obtain a list of anime names they enjoy. Now, using an unofficial MAL API, we can retrieve the anime image URL which will be useful for displaing on the website. Calling this API takes around 2 seconds per anime and so it would not be efficient to rely on it alone. This is why I decided to use a SQLite3 database to store all the anime data. While an SQLite3 database may not be ideal for production, it is perfect for this project. SQLite3 databases are light weight and fast but have drawbacks when you reach hundreds of thousands of enteries. Luckily, this project will only store a few thousand enteries which a SQLite3 database can handle. As of right now, the database contains about two thousand enteries. MAL has around thirteen thousand rated anime, however, many of these are shows are unpopular, so I ensured to fill the database with as many of the popular shows as I can. 
 
 ### Getting Beatmaps 
 Populating the database proved to be a bit challenging, primarily due to the edge cases. For example, when you add an anime with unicode such as Lucky☆Star, it saves it into the database as Lucky\u2606Star so we need to address these small issues. The next step is to get the beatmaps. This is done by using requests, I did try using the Osu! search with its API, however, the rate limit, and the inaccuracy of the searches made it much more challenging, so I decided to use Google searching instead. It takes the first result of searching "{anime name} osu beatmap" and scrapes the website using Beautiful Soup to determine if it is first of all a beatmap, and second of all, the artist and song name. This is done by using Beautiful Soup to scrape the Osu! website for all beatmaps. 
@@ -78,6 +78,7 @@ This is stored in the same row as the anime name and image URL. For the server s
 I will try to maintain this site and add new features when possible, however, with school and other commitments, I cannot guarantee that I will be able to. If you have any suggestions, feel free to let me know. As of right now, a few features I would like to add are:
  - Anilist Support
  - Top Anime ranked by MAL and their maps
+ - Sorting by categories other than user rating
 
 
 ## Credits
@@ -99,6 +100,11 @@ I will try to maintain this site and add new features when possible, however, wi
     - [Joshhhp](https://myanimelist.net/profile/Joshhhp)
     - [sayu-simp](https://myanimelist.net/profile/sayu-simp)
     - [Lakdinu](https://myanimelist.net/profile/Lakdinu)
+    - [Kineta](https://myanimelist.net/profile/Kineta)
+    - [SenApai07](https://myanimelist.net/profile/SenApai07)
+    - [SingleH](https://myanimelist.net/profile/SingleH)
+    - [ThatAnimeSnobRE](https://myanimelist.net/profile/ThatAnimeSnobRE)
+    - [Gsarthotegga](https://myanimelist.net/profile/Gsarthotegga)
 - **Netflix**: Much of the UI is inspired by Netflix's login page. [Netflix Website](https://www.netflix.com/)
 
 

@@ -1,24 +1,28 @@
-# This file contains all the functions that interact with the database, 
+# This file contains all the functions that interact with the database,
 # is not used in the actual program, but mainly used to add additional anime to the database
 
 import sqlite3
 import time
 from mal import Anime, AnimeSearch
 from data_processing import convertor
-from config import DB_PATH
+from config import DB_PATH, TEST_MODE
 
- 
+
 conn = sqlite3.connect(DB_PATH)
 c = conn.cursor()
 
+
 def main():
-    #delete_rows_by_id(1790, 1805)
-    #add_user_to_db("Lakdinu", 240)
-    #nyes593
-    #set_song_to_none()
-    #update_anime_names_unicode(0, 1930)
-    change_image()
+    if not TEST_MODE:
+        print("Running in test mode")
+        return
+    #song_link_not_found()
+    add_user_to_db("Gsarthotegga", 280)
+    #osu_link_dne()
+    #update_anime_names_unicode(0, 2191)
+    # change_image()
     pass
+
 
 def add_user_to_db(user: str, start: int):
     for i in range(6):
@@ -30,6 +34,7 @@ def add_user_to_db(user: str, start: int):
         time.sleep(20)
         start = end
 
+
 def convert_unicode_to_string(unicode_str: str) -> str:
     converted_chars = []
     for char in unicode_str:
@@ -38,7 +43,6 @@ def convert_unicode_to_string(unicode_str: str) -> str:
         else:
             converted_chars.append(char)
     return "".join(converted_chars)
-
 
 
 def update_anime_names_unicode(start: int, end: int):
@@ -53,19 +57,33 @@ def update_anime_names_unicode(start: int, end: int):
             print(new_name)
             c.execute(
                 "INSERT INTO anime (anime_name, anime_song, anime_img, osu_link) VALUES (?, ?, ?, ?)",
-                (new_name, anime_song, anime_img, osu_link,)
+                (
+                    new_name,
+                    anime_song,
+                    anime_img,
+                    osu_link,
+                ),
             )
             conn.commit()
 
-def set_song_to_none():
+
+def osu_link_dne():
     update_query = """
         UPDATE anime
         SET osu_link = 'Does not exist'
-        WHERE osu_link = 'Not Supported Yet';
+        WHERE osu_link = 'Not Supported Yet' 
+        OR osu_link = 'No song found';
     """
     c.execute(update_query)
 
 
+def song_link_not_found():
+    update_query = """
+        UPDATE anime
+        SET anime_song = 'No song found'
+        WHERE osu_link = 'Does not exist';
+    """
+    c.execute(update_query)
 
 
 def no_map(anime_name: str, anime_song: str, anime_img: str):
@@ -168,6 +186,7 @@ def get_japanese_names(english_names: str):
         print(japanese_name)
     return japanese_names
 
+
 def change_image():
     query = "SELECT anime_name FROM anime WHERE anime_img = 'https://cdn.myanimelist.net/images/anime/1792/91081.jpg'"
     c.execute(query)
@@ -182,9 +201,14 @@ def change_image():
         img = anime_info.image_url
         print(anime, img)
         query = "UPDATE anime SET anime_img = ? WHERE anime_img = 'https://cdn.myanimelist.net/images/anime/1792/91081.jpg' AND anime_name = ?"
-        c.execute(query, (img, anime,))
+        c.execute(
+            query,
+            (
+                img,
+                anime,
+            ),
+        )
         conn.commit()
-
 
 
 main()
