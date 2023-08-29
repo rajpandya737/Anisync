@@ -14,13 +14,12 @@ c = conn.cursor()
 
 def main():
     if not TEST_MODE:
-        print("Running in test mode")
+        print("Not running in test mode")
         return
-    #song_link_not_found()
-    add_user_to_db("Gsarthotegga", 280)
     #osu_link_dne()
-    #update_anime_names_unicode(0, 2191)
-    # change_image()
+    #song_link_not_found()
+    #osu_link_dne()
+    update_anime_names_unicode(0, 2439)
     pass
 
 

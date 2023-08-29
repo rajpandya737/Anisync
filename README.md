@@ -1,4 +1,4 @@
-# Anisync - Convert your MAL to Osu maps!
+# Anisync - Convert your Anime List to Osu maps!
 
 ## Description
 
