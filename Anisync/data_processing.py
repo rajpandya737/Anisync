@@ -108,7 +108,7 @@ def convertor(user: str, start: int, end: int) -> list:
         anime_list = []
     list_info = []
     for anime in anime_list:
-        print(anime)
+        # print(anime)
         # Check if anime is already in the database
         c.execute("SELECT 1 FROM anime WHERE anime_name = ? LIMIT 1", (anime,))
         result = c.fetchone()
