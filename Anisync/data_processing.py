@@ -30,7 +30,6 @@ def get_google_results(search_term: str) -> str or None:
     res.raise_for_status()
     soup = bs4.BeautifulSoup(res.text, "html.parser")
     linkElements = soup.select(".kCrYT > a")
-    # print(linkElements)
     linkToOpen = min(2, len(linkElements))
     to_return = [
         "https://www.google.com" + linkElements[i].get("href")

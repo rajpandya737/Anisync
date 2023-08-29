@@ -65,6 +65,7 @@ def user():
 
 
 @app.errorhandler(404)
+# 404 error page route
 def not_found_error(error):
     return (
         render_template(
@@ -77,6 +78,7 @@ def not_found_error(error):
 
 
 @app.errorhandler(Exception)
+# 500 error page route
 def global_error_handler(error):
     return (
         render_template(
@@ -87,6 +89,7 @@ def global_error_handler(error):
 
 
 @app.route("/sitemap.xml")
+# Sitemap route
 def sitemap():
     base_url = "https://anisync.live"
 
