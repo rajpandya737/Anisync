@@ -3,6 +3,7 @@
 ## Description
 
 Have you ever had an issue of finding maps to play? well we are here to fix that by bridging the gap between anime and Osu! Anisync is a web application that takes a MyAnimeList (MAL) username as input and returns a list of songs from the popular game Osu! that appear on the user's anime list. As an Osu! player myself, I always found it difficult to find maps to play when it was so tedious to search an anime one by one. For those who don't know, osu! is a popular rhythm game that has a large community of players. The game has a large library of songs to choose from and is constantly growing. The game is free to play and can be downloaded [here](https://osu.ppy.sh/home/download).
+
 The app has utilized the Osu! API, unofficial MyAnimeList API, and Beautiful Soup for data gathering. HTML, CSS, Javascript, and Jinja display the content in a clean and sophisticated way. The back end uses Flask with an SQLite3 database for faster processing and the full website is hosted on a Digital Ocean server (droplet).
 
 ![View Maps](Anisync/static/images/view-maps.png)
@@ -38,7 +39,7 @@ python Anisync/app.py
 
 ## Usage
 
-On the website, simply type in your MAL username into the search bar and click submit. The program will then take a few seconds to process the data and return a list of beatmaps that appear on your anime list. The beatmaps are sorted by the rating you gave on your list, and the list is limited to 300 beatmaps. If you have typed in your username correctly and no maps appear, it is likely due to the theme you have enabled on your anime profile, please disable it and try again.
+On the website, simply type in your MAL username into the search bar and click submit. The program will then take a few seconds to process the data and return a list of beatmaps that appear on your anime list. The beatmaps are sorted by the rating you gave on your list, and is limited to 300 beatmaps. If you have typed in your username correctly and no maps appear, it is likely due to the theme you have enabled on your anime profile, please disable it and try again.
 
 If you are running it locally, make your way to http://localhost:8000 and follow the same steps as above.
 
@@ -61,13 +62,13 @@ The project consists of the following files inside of the Anisync Folder folder:
 ## Design Process
 
 ### Getting MyAnimeList Data
-Assuming the MAL account exists, the first step of the program is to get the user's anime list from MAL. Unfortunetly I was not able to find any API's that do this seemlessly and so I decided to use webscrapping instead. The link to every users anime list sorted from highest score to lowest score is ALWAYS the same, just a different query in the URL. With this information, a simple username can retrieve your list, however there are limitations. MAL loads the list data dynamically and so webscrapping only retrieves ~300 enteries leaving the rest to be unaccessable. This is why the program is limited to 300 beatmaps. 
+Assuming the MAL account exists, the first step of the program is to get the user's anime list from MAL. Unfortunetly I was not able to find any API's that do this seemlessly and so I decided to use webscrapping instead. The link to every users anime list sorted from highest score to lowest score is ALWAYS the same, just a different query in the URL. With this information, a simple username can retrieve your list, however there are limitations. MAL loads the list data dynamically and so webscrapping only retrieves ~300 enteries leaving the rest to be unaccessable.
+
+### Getting Beatmaps 
+Populating the database proved to be a bit challenging, primarily due to the edge cases. For example, when you add an anime with unicode such as Lucky☆Star, it saves it into the database as Lucky\u2606Star so we need to address these small issues. The next step is to get the beatmaps. This is done by using requests, I did try using the Osu! search with its API, however, the rate limit, and the inaccuracy of the searches made it much more challenging, so I decided to use Google searching instead. It takes the first result of searching "{anime name} osu beatmap" and scrapes the website to determine if it is first of all a beatmap, and second of all, the artist + song name. This is done by using Beautiful Soup. 
 
 ### Storing Data
 Cleaning the data with regex, we can obtain a list of anime names. Using an unofficial MAL API, we can retrieve the anime image URL which will be useful for displaing on the website. Calling this API takes around 2 seconds per anime and so it would not be efficient to rely on it alone. This is why I decided to use a SQLite3 database to store all the anime data. While an SQLite3 database may not be ideal for production, it is perfect for this project. SQLite3 databases are light weight and fast but have drawbacks when you reach hundreds of thousands of enteries. Luckily, this project will only store a few thousand enteries which a SQLite3 database can handle. As of right now, the database contains ~2500 enteries. MAL has around thirteen thousand rated anime, however, many of these are shows are unpopular, so I ensured to fill the database with as many of the popular shows as I can. 
-
-### Getting Beatmaps 
-Populating the database proved to be a bit challenging, primarily due to the edge cases. For example, when you add an anime with unicode such as Lucky☆Star, it saves it into the database as Lucky\u2606Star so we need to address these small issues. The next step is to get the beatmaps. This is done by using requests, I did try using the Osu! search with its API, however, the rate limit, and the inaccuracy of the searches made it much more challenging, so I decided to use Google searching instead. It takes the first result of searching "{anime name} osu beatmap" and scrapes the website using Beautiful Soup to determine if it is first of all a beatmap, and second of all, the artist and song name. This is done by using Beautiful Soup. 
 
 ### Web Development and Deployment
 This is stored in the same row as the anime name and image URL. For the server side code, I used Flask, a lightweight python framework that has all the functionality I need, primarily session data, routing, rendering templates, sitemap data, 404 pages, and more. The front end is written in HTML, CSS, and Javascript. The CSS and JS is minified to provide a faster loading page. Once everything was connected, I created a Digital Ocean droplet running Ubuntu 20.04. The website is served using Nginx and Gunicorn which is the purpose of the wsgi.py file. The website is secured using Let's Encrypt and so it running through HTTPS.
