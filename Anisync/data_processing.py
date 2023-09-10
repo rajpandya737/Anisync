@@ -8,9 +8,11 @@ from config import DB_PATH, TEST_MODE
 ERROR_IMG_URL = "https://developers.google.com/static/maps/documentation/streetview/images/error-image-generic.png"
 
 
-def mal(user: str) -> list:
+def mal(user: str, status="completed") -> list:
     # Find anime titles from MAL by user name sorted from highest to lowest score
     link = f"https://myanimelist.net/animelist/{user}?status=2&order=4&order2=0"
+    if status == "airing":
+        link = f"https://myanimelist.net/animelist/{user}?status=1&order=4&order2=0"
     with requests.Session() as session:
         response = session.get(link)
         response.raise_for_status()
@@ -94,7 +96,7 @@ decode_unicode = lambda lst: [
 convert_to_string = lambda input_string: input_string.encode().decode("unicode_escape")
 
 
-def convertor(user: str, start: int, end: int) -> list:
+def convertor(user: str, start: int, end: int, status:str="completed") -> list:
     # Converts the anime list from MAL to a list of lists containing the anime name, song, image, and osu link
     # Initialise Database connection
     conn = sqlite3.connect(DB_PATH)
@@ -102,7 +104,7 @@ def convertor(user: str, start: int, end: int) -> list:
     searched = 0
     # Get the user anime list
     try:
-        anime_list = decode_unicode(remove_blank_entries(mal(user)[start:end]))
+        anime_list = decode_unicode(remove_blank_entries(mal(user, status)[start:end]))
     except Exception as e:
         print(e)
         anime_list = []
@@ -168,3 +170,4 @@ def convertor(user: str, start: int, end: int) -> list:
                 #list_info.append([anime, "No song", ERROR_IMG_URL, "Does not exist"])
     conn.close()
     return list_info
+

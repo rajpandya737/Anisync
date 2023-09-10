@@ -17,15 +17,16 @@ def main():
     if not TEST_MODE:
         print("Not running in test mode")
         return
-    pass
+    add_user_to_db("test_account_737", 0, "airing")
 
 
-def add_user_to_db(user: str, start: int):
+def add_user_to_db(user: str, start: int, status:str="airing"):
     # Gets the users list and adds anime to the database if its not already in it
     for i in range(6):
-        end = start + 20
+        end = start + 5
         print(start, end, "start")
-        anime_list = convertor(user, start, end)
+        anime_list = convertor(user, start, end, status)
+        print(anime_list)
         add_anime_by_list(anime_list)
         print(start, end, "end")
         time.sleep(20)

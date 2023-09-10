@@ -2,7 +2,7 @@ import os.path
 import dotenv
 from datetime import timedelta
 
-TEST_MODE = False
+TEST_MODE = True
 
 # Flask config
 HOST = "0.0.0.0"
