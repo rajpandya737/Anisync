@@ -10,7 +10,7 @@ Have you ever had an issue of finding maps to play? well we are here to fix that
 ![View Maps](Anisync/static/images/view-maps.png)
 ## How to run the program
 
-Currently, a website for this program is deployed with the latest version being avaliable at: https://anisync.live
+Currently, a website for this program is deployed with the latest version being available at: https://anisync.live
 
 The program can also be run locally by following these steps. Please ensure you have pip installed on your machine. If you do not, please follow the instructions [here](https://pip.pypa.io/en/stable/installing/).
 
@@ -49,7 +49,7 @@ The project consists of the following files inside of the Anisync Folder folder:
 
 1. `app.py`: The main Python script.
 2. `config.py`: Contains all constants used in the program.
-3. `data_processing.py`: Stores all data retrival functions.
+3. `data_processing.py`: Stores all data retrieval functions.
 4. `db.py`: Runs any database related functions, used to add data to the database.
 5. `static/css`: Contains CSS for each of the respective HTML files. The CSS is minified.
 6. `static/images`: Contains all images used in the project.
