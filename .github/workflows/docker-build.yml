@@ -17,10 +17,3 @@ jobs:
 
       - name: Build the Docker container
         run: docker build -t anisync .
-
-      - name: Run the Docker container
-        run: |
-          docker run -p 8000:8000 anisync
-
-      - name: Check running containers
-        run: docker ps
