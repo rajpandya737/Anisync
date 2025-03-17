@@ -1,7 +1,7 @@
 FROM python:3.10.6
-WORKDIR /flask-app
-COPY requirements.txt .
+WORKDIR /app
+COPY . .
 RUN pip install -r requirements.txt
-COPY ./Anisync ./app
-RUN chmod 644 ./app/translated_anime_list.sqlite
-CMD ["python", "./app/app.py"]
+RUN chmod 644 Anisync/translated_anime_list.sqlite
+CMD ["python", "Anisync/app.py"]
+EXPOSE 8000

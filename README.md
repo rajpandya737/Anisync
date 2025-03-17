@@ -12,7 +12,7 @@ Have you ever had an issue of finding maps to play? well we are here to fix that
 
 Currently, a website for this program is deployed with the latest version being available at: https://anisync.live
 
-The program can also be run locally by following these steps. Please ensure you have pip installed on your machine. If you do not, please follow the instructions [here](https://pip.pypa.io/en/stable/installing/).
+To run it locally using docker, follow these steps:
 
 1. Clone this repository to your local machine:
 
@@ -20,23 +20,18 @@ The program can also be run locally by following these steps. Please ensure you 
 git clone https://github.com/RajPandya737/Anisync.git
 ```
 
-2. Change to the project directory:
+2. Build the Docker container:
 
 ```bash
-cd Anisync
+sudo docker build -t anisync .
 ```
 
-3. The project utilizes many libraries. Ensure you have all of them downloaded by running
+3. Run the Docker container and access the website at http://localhost:8000:
 
 ```bash
-pip install -r requirements.txt
+sudo docker run -p 8000:8000 anisync
 ```
 
-4. Run the program, please read the usage part of this file before continuing:
-
-```bash
-python Anisync/app.py
-```
 
 ## Usage
 
