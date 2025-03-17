@@ -13,18 +13,10 @@ jobs:
 
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
-
-      - name: Clone the repository
-        run: git clone https://github.com/RajPandya737/Anisync.git
-
-      - name: Set up Docker Build
-        uses: docker/setup-buildx-action@v2
+        uses: actions/checkout@v4
 
       - name: Build the Docker container
-        run: |
-          cd Anisync
-          docker build -t anisync .
+        run: docker build -t anisync .
 
       - name: Run the Docker container
         run: |
