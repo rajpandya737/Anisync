@@ -14,10 +14,11 @@ Currently, a website for this program is deployed with the latest version being 
 
 To run it locally using docker, follow these steps:
 
-1. Clone this repository to your local machine:
+1. Clone this repository to your local machine and navigate into it:
 
 ```bash
 git clone https://github.com/RajPandya737/Anisync.git
+cd Anisync
 ```
 
 2. Build the Docker container:
