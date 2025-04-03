@@ -1,6 +1,7 @@
 import os.path
-import dotenv
 from datetime import timedelta
+
+import dotenv
 
 TEST_MODE = True
 

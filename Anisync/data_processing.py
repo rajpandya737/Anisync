@@ -1,8 +1,10 @@
-from mal import Anime, AnimeSearch
-import bs4
-import requests
 import re
 import sqlite3
+
+import bs4
+import requests
+from mal import Anime, AnimeSearch
+
 from config import DB_PATH, TEST_MODE
 
 ERROR_IMG_URL = "https://developers.google.com/static/maps/documentation/streetview/images/error-image-generic.png"
@@ -14,16 +16,19 @@ def mal(user: str, status="completed") -> list:
     if status == "airing":
         link = f"https://myanimelist.net/animelist/{user}?status=1&order=4&order2=0"
     with requests.Session() as session:
-        response = session.get(link)
-        response.raise_for_status()
-        soup = bs4.BeautifulSoup(response.text, "html.parser")
-        html_list = soup.find("table", attrs={"class": "list-table"})
-        source = str(html_list)
-        start_sep = ",&quot;anime_title&quot;:&quot;"
-        end_sep = "&quot;,&quot;anime_title_eng&quot;:&quot;"
-        tmp = source.split(start_sep)
-        results = [par.split(end_sep)[0] for par in tmp if end_sep in par]
-        return results
+        return _extracted_from_mal_(session, link)
+
+
+def _extracted_from_mal_(session, link):
+    response = session.get(link)
+    response.raise_for_status()
+    soup = bs4.BeautifulSoup(response.text, "html.parser")
+    html_list = soup.find("table", attrs={"class": "list-table"})
+    source = str(html_list)
+    start_sep = ",&quot;anime_title&quot;:&quot;"
+    end_sep = "&quot;,&quot;anime_title_eng&quot;:&quot;"
+    tmp = source.split(start_sep)
+    return [par.split(end_sep)[0] for par in tmp if end_sep in par]
 
 
 def get_google_results(search_term: str) -> str or None:
@@ -43,13 +48,12 @@ def get_google_results(search_term: str) -> str or None:
         return None
 
 
-def extract_anime_id(url: str) -> str or None:
+def extract_anime_id(url: str) -> str or None: # type: ignore
     # Extracts the anime ID from a google link
     try:
-        match = re.search(r"/(\d+)/", url)
-        if match:
-            return match.group(1)
-    except Exception as e:
+        if match := re.search(r"/(\d+)/", url):
+            return match[1]
+    except Exception:
         return None
     return None
 
@@ -87,16 +91,19 @@ def scrape_osu(link: str):
         return [None]
 
 
-remove_blank_entries = lambda lst: [entry.strip() for entry in lst if entry.strip()]
+def remove_blank_entries(lst):
+    return [entry.strip() for entry in lst if entry.strip()]
 
-decode_unicode = lambda lst: [
+def decode_unicode(lst):
+    return [
     entry.encode("ascii", "ignore").decode("utf-8") for entry in lst
 ]
 
-convert_to_string = lambda input_string: input_string.encode().decode("unicode_escape")
+def convert_to_string(input_string):
+    return input_string.encode().decode("unicode_escape")
 
 
-def convertor(user: str, start: int, end: int, status:str="completed") -> list:
+def convertor(user: str, start: int, end: int, status: str = "completed") -> list:
     # Converts the anime list from MAL to a list of lists containing the anime name, song, image, and osu link
     # Initialise Database connection
     conn = sqlite3.connect(DB_PATH)
@@ -119,12 +126,12 @@ def convertor(user: str, start: int, end: int, status:str="completed") -> list:
             searched += 1
             img, anime_type = get_anime_type(anime)
             song = [None]
-            # Filter any anime that arent TV
+            # Filter any anime that aren't TV
             if anime_type == "TV":
-                # If they are TV, search on google for osu beatmaps related to them
+                # If they are TV, search on google for osu maps related to them
                 google_search_term = f"{anime} Osu Beatmap Anime"
                 link = str(get_google_results(google_search_term))
-                # Make sure they are osu beatmaps and not discussions or other links
+                # Make sure they are osu maps and not discussions or other links
                 if link is None:
                     song = "No song found"
                     link = "Does not exist"
@@ -136,10 +143,10 @@ def convertor(user: str, start: int, end: int, status:str="completed") -> list:
                 ):
                     song = scrape_osu(link)
                 else:
-                    link = f"No song found"
+                    link = "No song found"
                     song = "No song found"
             else:
-                link = f"Does not exist"
+                link = "Does not exist"
                 song = "No song found"
 
             if song[0] is None or song[0] == "None":
@@ -156,18 +163,15 @@ def convertor(user: str, start: int, end: int, status:str="completed") -> list:
             try:
                 # Execute the select query
                 c.execute(select_query, (anime,))
-                row = c.fetchone()
-
-                if row:
+                if row := c.fetchone():
                     # If a row is found, you can access the columns like this
                     db_anime_name, db_anime_song, db_anime_img, db_osu_link = row
                     db_anime_name = convert_to_string(db_anime_name)
                     list_info.append(
                         [db_anime_name, db_anime_song, db_anime_img, db_osu_link]
                     )
-            except Exception as e:
+            except Exception:
                 print("error")
-                #list_info.append([anime, "No song", ERROR_IMG_URL, "Does not exist"])
+                # list_info.append([anime, "No song", ERROR_IMG_URL, "Does not exist"])
     conn.close()
     return list_info
-
