@@ -7,7 +7,7 @@ from flask import (
     session,
     make_response,
 )
-import xml.etree.ElementTree as ET
+import defusedxml.ElementTree as ET
 import logging
 from data_processing import convertor
 from config import HOST, PORT, DEBUG, START, END, SECRET_KEY, SESSION_LIFETIME
@@ -89,7 +89,6 @@ def global_error_handler(error):
 
 
 @app.route("/sitemap.xml")
-# Sitemap route
 def sitemap():
     base_url = "https://anisync.live"
 
@@ -101,12 +100,12 @@ def sitemap():
         loc = ET.SubElement(root, "url")
         ET.SubElement(loc, "loc").text = base_url + url
 
-    tree = ET.ElementTree(root)
     xml_string = ET.tostring(root, encoding="utf-8")
     response = make_response(xml_string)
     response.headers["Content-Type"] = "application/xml"
 
     return response
+
 
 
 if __name__ == "__main__":
