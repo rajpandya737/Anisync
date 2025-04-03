@@ -3,10 +3,11 @@
 
 import sqlite3
 import time
-from mal import Anime, AnimeSearch
-from data_processing import convertor
-from config import DB_PATH, TEST_MODE
 
+from mal import Anime, AnimeSearch
+
+from config import DB_PATH, TEST_MODE
+from data_processing import convertor
 
 conn = sqlite3.connect(DB_PATH)
 c = conn.cursor()
@@ -20,9 +21,9 @@ def main():
     add_user_to_db("test_account_737", 0, "airing")
 
 
-def add_user_to_db(user: str, start: int, status:str="airing"):
+def add_user_to_db(user: str, start: int, status: str = "airing"):
     # Gets the users list and adds anime to the database if its not already in it
-    for i in range(6):
+    for _ in range(6):
         end = start + 5
         print(start, end, "start")
         anime_list = convertor(user, start, end, status)
@@ -69,8 +70,8 @@ def update_anime_names_unicode(start: int, end: int):
 
 
 def osu_link_dne():
-    # While adding enteries to the database, 
-    # I changed the osu link depending on if 
+    # While adding entries to the database,
+    # I changed the osu link depending on if
     # the song was found or not and if it was not a TV anime
     # This just converted everything to a uniform format
     update_query = """
@@ -83,7 +84,7 @@ def osu_link_dne():
 
 
 def song_link_not_found():
-    # While adding enteries to the database, sometimes no link 
+    # While adding entries to the database, sometimes no link
     # would be found but a song would still have a title, this is to fix that issue
     update_query = """
         UPDATE anime
@@ -104,7 +105,6 @@ def insert_and_delete(anime_name: str, anime_song: str, anime_img: str, osu_link
 
 
 def update_anime_links_and_songs(old_word: str, new_link: str, new_song: str):
-
     # Fetch anime records containing the old_word in the osu_link
     c.execute("SELECT * FROM anime")
     anime_records = c.fetchall()
@@ -191,7 +191,8 @@ def update_anime_name(row_id: int, name: str):
     c.execute(query, (name, row_id))
 
 
-get_japanese_name = lambda s: AnimeSearch(s).results[0].title
+def get_japanese_name(s):
+    return AnimeSearch(s).results[0].title
 
 
 def get_japanese_names(english_names: str):
@@ -214,6 +215,10 @@ def change_image():
     """
     c.execute(query)
     anime_data = c.fetchall()
+    query = """UPDATE anime 
+                   SET anime_img = ? 
+                   WHERE anime_img = 'https://cdn.myanimelist.net/images/anime/1792/91081.jpg' 
+                   AND anime_name = ?"""
     for i, anime in enumerate(anime_data):
         if i % 10 == 0 and i != 0:
             time.sleep(10)
@@ -223,10 +228,6 @@ def change_image():
         anime_info = Anime(MAL_id)
         img = anime_info.image_url
         print(anime, img)
-        query = """UPDATE anime 
-                   SET anime_img = ? 
-                   WHERE anime_img = 'https://cdn.myanimelist.net/images/anime/1792/91081.jpg' 
-                   AND anime_name = ?"""
         c.execute(
             query,
             (

@@ -1,17 +1,11 @@
-from flask import (
-    Flask,
-    request,
-    render_template,
-    redirect,
-    url_for,
-    session,
-    make_response,
-)
-import defusedxml.ElementTree as ET
 import logging
-from data_processing import convertor
-from config import HOST, PORT, DEBUG, START, END, SECRET_KEY, SESSION_LIFETIME
 
+import defusedxml.ElementTree as ET
+from flask import (Flask, make_response, redirect, render_template, request,
+                   session, url_for)
+
+from config import DEBUG, END, HOST, PORT, SECRET_KEY, SESSION_LIFETIME, START
+from data_processing import convertor
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = SECRET_KEY
@@ -105,7 +99,6 @@ def sitemap():
     response.headers["Content-Type"] = "application/xml"
 
     return response
-
 
 
 if __name__ == "__main__":
