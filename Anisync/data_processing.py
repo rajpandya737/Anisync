@@ -104,74 +104,40 @@ def convert_to_string(input_string):
 
 
 def convertor(user: str, start: int, end: int, status: str = "completed") -> list:
-    # Converts the anime list from MAL to a list of lists containing the anime name, song, image, and osu link
-    # Initialise Database connection
+    """Converts the anime list from MAL to a structured list with anime details."""
+    
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
-    searched = 0
-    # Get the user anime list
+
     try:
         anime_list = decode_unicode(remove_blank_entries(mal(user, status)[start:end]))
     except Exception as e:
         print(e)
         anime_list = []
-    list_info = []
-    for anime in anime_list:
-        # print(anime)
-        # Check if anime is already in the database
-        c.execute("SELECT 1 FROM anime WHERE anime_name = ? LIMIT 1", (anime,))
-        result = c.fetchone()
-        if not result and (TEST_MODE is True or searched < 0):
-            # If not in database get the anime type and image
-            searched += 1
-            img, anime_type = get_anime_type(anime)
-            song = [None]
-            # Filter any anime that aren't TV
-            if anime_type == "TV":
-                # If they are TV, search on google for osu maps related to them
-                google_search_term = f"{anime} Osu Beatmap Anime"
-                link = str(get_google_results(google_search_term))
-                # Make sure they are osu maps and not discussions or other links
-                if link is None:
-                    song = "No song found"
-                    link = "Does not exist"
-                elif (
-                    link.startswith(
-                        "https://www.google.com/url?q=https://osu.ppy.sh/beatmapsets/"
-                    )
-                    and "discussion" not in link
-                ):
-                    song = scrape_osu(link)
-                else:
-                    link = "No song found"
-                    song = "No song found"
-            else:
-                link = "Does not exist"
-                song = "No song found"
 
-            if song[0] is None or song[0] == "None":
-                link = "Does not exist"
-                song = "No song found"
-            anime = convert_to_string(anime)
-            list_info.append([anime, song, img, link])
-        else:
-            # If anime is in database, get all its information and append to the list
-            select_query = """
-            SELECT * FROM anime
-            WHERE anime_name = ?;
-        """
-            try:
-                # Execute the select query
-                c.execute(select_query, (anime,))
-                if row := c.fetchone():
-                    # If a row is found, you can access the columns like this
-                    db_anime_name, db_anime_song, db_anime_img, db_osu_link = row
-                    db_anime_name = convert_to_string(db_anime_name)
-                    list_info.append(
-                        [db_anime_name, db_anime_song, db_anime_img, db_osu_link]
-                    )
-            except Exception:
-                print("error")
-                # list_info.append([anime, "No song", ERROR_IMG_URL, "Does not exist"])
+    list_info = []
+    searched = 0
+
+    for anime in anime_list:
+        c.execute("SELECT * FROM anime WHERE anime_name = ?", (anime,))
+        if row := c.fetchone():
+            list_info.append([convert_to_string(row[0]), row[1], row[2], row[3]])
+            continue
+
+        if not TEST_MODE and searched >= 0:
+            continue
+
+        searched += 1
+        img, anime_type = get_anime_type(anime)
+        song, link = "No song found", "Does not exist"
+
+        if anime_type == "TV":
+            link = str(get_google_results(f"{anime} Osu Beatmap Anime"))
+            if link and link.startswith("https://www.google.com/url?q=https://osu.ppy.sh/beatmapsets/") and "discussion" not in link:
+                song = scrape_osu(link)
+
+        list_info.append([convert_to_string(anime), song, img, link])
+
     conn.close()
     return list_info
+
