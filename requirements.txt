@@ -27,4 +27,4 @@ setuptools==78.1.0
 soupsieve==2.4.1
 stevedore==5.4.1
 urllib3==2.0.4
-werkzeug==2.3.7
+werkzeug==3.0.6
